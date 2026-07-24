@@ -1,0 +1,273 @@
+{
+ "meta": {
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "torch": "2.8.0+cu128",
+  "config": "configs/self_forcing_server.yaml",
+  "prompt": "A person dancing in an empty warehouse, dramatic lighting, camera static",
+  "load_transformer": {
+   "sec": 9.0,
+   "torch_alloc_gb": 3.28,
+   "device_used_gb": 9.988,
+   "device_total_gb": 25.253
+  },
+  "param_count": 1631471680,
+  "t5_mode": "static-embedding-cpu-precomputed (stock loader needs 22.7GB fp32 on GPU)"
+ },
+ "runs": [
+  {
+   "tag": "kv3_s4",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "ok": true,
+   "kv_cache_gb": 1.725,
+   "wall_sec": 17.46,
+   "pixel_frames": 102,
+   "block_sec": [
+    1.272,
+    4.94,
+    1.612,
+    1.609,
+    1.607,
+    1.606,
+    1.608,
+    1.605,
+    1.607
+   ],
+   "fps_e2e": 5.84,
+   "fps_steady": 5.93,
+   "prefill_ms": {
+    "mean": 581.1,
+    "per_block": [
+     3518.0,
+     161.5,
+     161.4,
+     161.9,
+     161.3,
+     161.8,
+     161.1,
+     161.5
+    ]
+   },
+   "denoise_ms_mean": 183.5,
+   "peak_alloc_gb": 11.619,
+   "torch_alloc_gb": 7.39,
+   "device_used_gb": 14.574,
+   "device_total_gb": 25.253
+  },
+  {
+   "tag": "kv3_s4_seed43",
+   "kv": 3,
+   "steps": 4,
+   "seed": 43,
+   "ok": true,
+   "kv_cache_gb": 1.725,
+   "wall_sec": 13.95,
+   "pixel_frames": 102,
+   "block_sec": [
+    1.145,
+    1.564,
+    1.605,
+    1.606,
+    1.604,
+    1.605,
+    1.608,
+    1.607,
+    1.608
+   ],
+   "fps_e2e": 7.31,
+   "fps_steady": 7.5,
+   "prefill_ms": {
+    "mean": 161.6,
+    "per_block": [
+     161.4,
+     161.9,
+     161.8,
+     161.4,
+     161.2,
+     161.4,
+     162.0,
+     161.5
+    ]
+   },
+   "denoise_ms_mean": 181.4,
+   "peak_alloc_gb": 11.621,
+   "torch_alloc_gb": 7.392,
+   "device_used_gb": 14.425,
+   "device_total_gb": 25.253
+  },
+  {
+   "tag": "kv3_s4_seed44",
+   "kv": 3,
+   "steps": 4,
+   "seed": 44,
+   "ok": true,
+   "kv_cache_gb": 1.725,
+   "wall_sec": 13.96,
+   "pixel_frames": 102,
+   "block_sec": [
+    1.147,
+    1.566,
+    1.607,
+    1.608,
+    1.606,
+    1.606,
+    1.607,
+    1.605,
+    1.606
+   ],
+   "fps_e2e": 7.31,
+   "fps_steady": 7.49,
+   "prefill_ms": {
+    "mean": 161.6,
+    "per_block": [
+     161.6,
+     162.0,
+     162.0,
+     161.6,
+     161.4,
+     161.6,
+     161.8,
+     161.4
+    ]
+   },
+   "denoise_ms_mean": 181.5,
+   "peak_alloc_gb": 11.621,
+   "torch_alloc_gb": 7.392,
+   "device_used_gb": 14.425,
+   "device_total_gb": 25.253
+  },
+  {
+   "tag": "kv3_s5",
+   "kv": 3,
+   "steps": 5,
+   "seed": 42,
+   "ok": true,
+   "kv_cache_gb": 1.725,
+   "wall_sec": 15.61,
+   "pixel_frames": 102,
+   "block_sec": [
+    1.303,
+    1.752,
+    1.793,
+    1.795,
+    1.792,
+    1.793,
+    1.794,
+    1.792,
+    1.793
+   ],
+   "fps_e2e": 6.54,
+   "fps_steady": 6.71,
+   "prefill_ms": {
+    "mean": 161.9,
+    "per_block": [
+     161.8,
+     162.3,
+     162.2,
+     161.8,
+     161.7,
+     161.8,
+     162.0,
+     161.6
+    ]
+   },
+   "denoise_ms_mean": 181.6,
+   "peak_alloc_gb": 11.621,
+   "torch_alloc_gb": 7.392,
+   "device_used_gb": 14.425,
+   "device_total_gb": 25.253
+  },
+  {
+   "tag": "kv6_s4",
+   "kv": 6,
+   "steps": 4,
+   "seed": 42,
+   "ok": true,
+   "kv_cache_gb": 2.588,
+   "wall_sec": 18.9,
+   "pixel_frames": 102,
+   "block_sec": [
+    1.137,
+    1.572,
+    4.574,
+    1.935,
+    1.935,
+    1.936,
+    1.936,
+    1.938,
+    1.937
+   ],
+   "fps_e2e": 5.4,
+   "fps_steady": 5.4,
+   "prefill_ms": {
+    "mean": 682.6,
+    "per_block": [
+     162.3,
+     3049.9,
+     373.8,
+     374.6,
+     375.1,
+     374.9,
+     375.1,
+     375.1
+    ]
+   },
+   "denoise_ms_mean": 203.6,
+   "peak_alloc_gb": 12.564,
+   "torch_alloc_gb": 8.333,
+   "device_used_gb": 16.395,
+   "device_total_gb": 25.253
+  },
+  {
+   "tag": "kv12_s4",
+   "kv": 12,
+   "steps": 4,
+   "seed": 42,
+   "ok": true,
+   "kv_cache_gb": 4.313,
+   "wall_sec": 26.55,
+   "pixel_frames": 102,
+   "block_sec": [
+    1.137,
+    1.571,
+    1.901,
+    5.199,
+    6.023,
+    2.681,
+    2.681,
+    2.68,
+    2.68
+   ],
+   "fps_e2e": 3.84,
+   "fps_steady": 3.78,
+   "prefill_ms": {
+    "mean": 1486.5,
+    "per_block": [
+     161.6,
+     374.6,
+     3554.0,
+     4256.5,
+     886.3,
+     886.3,
+     886.4,
+     886.4
+    ]
+   },
+   "denoise_ms_mean": 238.7,
+   "peak_alloc_gb": 14.345,
+   "torch_alloc_gb": 10.115,
+   "device_used_gb": 22.789,
+   "device_total_gb": 25.253
+  },
+  {
+   "tag": "kv21_s4",
+   "kv": 21,
+   "steps": 4,
+   "seed": 42,
+   "ok": false,
+   "kv_cache_gb": 6.901,
+   "error": "OOM: CUDA out of memory. Tried to allocate 5.91 GiB. GPU 0 has a total capacity of 23.52 GiB of which 3.76 GiB is free. Including non-PyTorch memory, this process has 19.75 GiB memory in use. Of the allocated memory 13.43 GiB is allocated by PyTorch, and 5.83 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+  }
+ ]
+}

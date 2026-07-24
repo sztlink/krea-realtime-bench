@@ -1,0 +1,59 @@
+{
+ "meta": {
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "torch": "2.8.0+cu128",
+  "patch": "fuse_projections dedup (del q/k/v after fusion)",
+  "load_transformer": {
+   "sec": 9.0,
+   "torch_alloc_gb": 2.838,
+   "device_used_gb": 3.317
+  },
+  "param_count": 1418996800
+ },
+ "runs": [
+  {
+   "tag": "kv3_s4_warmup",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "ok": true,
+   "wall_sec": 14.49,
+   "pixel_frames": 102,
+   "fps_e2e": 7.04,
+   "fps_steady": 7.26,
+   "peak_alloc_gb": 11.119,
+   "torch_alloc_gb": 6.892,
+   "device_used_gb": 12.674
+  },
+  {
+   "tag": "kv3_s4",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "ok": true,
+   "wall_sec": 13.96,
+   "pixel_frames": 102,
+   "fps_e2e": 7.31,
+   "fps_steady": 7.48,
+   "peak_alloc_gb": 11.119,
+   "torch_alloc_gb": 6.892,
+   "device_used_gb": 12.926,
+   "latents_shape": [
+    1,
+    27,
+    16,
+    60,
+    104
+   ],
+   "ref_shape": [
+    1,
+    27,
+    16,
+    60,
+    104
+   ],
+   "latents_bit_identical": true,
+   "latents_max_abs_diff": 0.0
+  }
+ ]
+}

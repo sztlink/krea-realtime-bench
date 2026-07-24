@@ -1,0 +1,59 @@
+{
+ "meta": {
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "torch": "2.8.0+cu128",
+  "config": "configs/self_forcing_server.yaml",
+  "prompt": "A person dancing in an empty warehouse, dramatic lighting, camera static",
+  "load_transformer": {
+   "sec": 7.6,
+   "torch_alloc_gb": 3.263,
+   "device_used_gb": 9.382,
+   "device_total_gb": 25.253
+  },
+  "param_count": 1631471680,
+  "t5_mode": "static-embedding-cpu-precomputed (stock loader needs 22.7GB fp32 on GPU)"
+ },
+ "runs": [
+  {
+   "tag": "kv21_s4",
+   "kv": 21,
+   "steps": 4,
+   "seed": 42,
+   "ok": true,
+   "kv_cache_gb": 6.901,
+   "wall_sec": 34.67,
+   "pixel_frames": 102,
+   "block_sec": [
+    1.298,
+    1.963,
+    1.973,
+    2.325,
+    2.705,
+    3.095,
+    8.173,
+    9.329,
+    3.814
+   ],
+   "fps_e2e": 2.94,
+   "fps_steady": 2.88,
+   "prefill_ms": {
+    "mean": 2366.0,
+    "per_block": [
+     539.0,
+     444.4,
+     680.6,
+     941.2,
+     1212.4,
+     6166.5,
+     7155.7,
+     1788.2
+    ]
+   },
+   "denoise_ms_mean": 262.5,
+   "peak_alloc_gb": 23.568,
+   "torch_alloc_gb": 12.841,
+   "device_used_gb": 24.529,
+   "device_total_gb": 25.253
+  }
+ ]
+}

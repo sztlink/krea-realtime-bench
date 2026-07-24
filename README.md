@@ -85,6 +85,30 @@ The H100 hit its wall at the 21-frame window, so we rented the bigger box and fi
 - The 21-frame window peaks at **93.2 GB**. That is why an 80GB H100 OOMs, and the real bar for the full window in bf16.
 - **Window 24 is refused by the shipped code.** `WanDiffusionWrapper` hardcodes `seq_len = 32760` (exactly 21 frames at 832x480) and an assert fires in the prefill forward. The "global" window is not just expensive, it is the architectural ceiling of the release. Raising it is a one-line patch, the memory bill afterwards is not.
 
+## The pipeline proxy on a consumer GPU (RTX 4090, same day)
+
+Making the 14B fit a 24GB card takes W4A4 quantization, and the last port of this kind burned about $70 of pod time debugging the pipeline at cloud prices. So the quantization stage gets built and proven on Self-Forcing 1.3B first. Same architecture, same causal loop, same server code, on a local 4090 where every iteration is free. Scripts `bench_1p3b.py` and `make_embedding.py`, raw data in `results/rtx4090-2026-07-24/`.
+
+| config | fps steady | prefill/block | peak VRAM |
+|---|---|---|---|
+| kv window 3, 4 steps | **7.5** | 161 ms | 11.6 GB |
+| kv window 6, 4 steps | 5.4 | 375 ms | 12.6 GB |
+| kv window 12, 4 steps | 3.8 | 886 ms | 14.3 GB |
+| kv window 21 (global), 4 steps | 2.88 | 2366 ms | **23.6 GB** |
+
+- SDPA eager, bf16, 832x480, 9 blocks, multi-seed variance under 1% on repeat seeds (7.50 and 7.49). Latent trajectories for 3 seeds are saved as fidelity references for the quantized runs to come.
+- The recompute curve reproduces the 14B shape. The 1.3B is a faithful laboratory for the full model.
+- The global window that OOMs an 80GB H100 at 14B scale fits a 24GB card at 1.3B, barely. Its prefill carries a ~6GB allocation transient and needs `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` to survive on 24GB.
+- Two release walls nobody documented. The stock T5 loader builds UMT5-XXL in fp32 directly on the GPU, 22.7 GB before any video model loads, so the release cannot even initialize on a 24GB card. `make_embedding.py` computes the prompt embedding on CPU and the T5 never touches VRAM. And the SageAttention wheel shipped in the repo has no sm89 kernels, it imports clean on a 4090 and explodes at runtime, so consumer Ada needs a source build or falls back to SDPA.
+
+### The 6.6 GB fix, measured
+
+The unfused q/k/v finding from the H100 run is now `fuse-dedup.patch`, three lines that drop the original projections after fusion. On the 1.3B it frees 0.44 GB and 212M duplicate parameters, latents stay bit identical under `torch.equal`, fps stays put. Scaled to the 14B geometry that is the 6.6 GB from the finding above. `bench_l1.py` reproduces the measurement. The bench itself keeps instrumenting stock code, the patch is a proposed fix headed upstream.
+
+### A calibration collector that survives the causal loop
+
+W4A4 calibration wants activation statistics from the loop as it really runs. Stock PTQ collectors cache the whole transformer input per step and replay the model later, and a causal server carries gigabytes of mutable KV state inside those very inputs, so replay is not an option here. `collect_wan.py` inverts the flow. Hooks capture the input of every quantization target during real generation, denoise steps and cache recompute both, tagged per call with phase and timestep. One 48 second pass on the 4090 covers the full schedule, 27 calls at each of the 4 denoising timesteps plus 24 recompute passes at t=0, and writes exact channelwise stats plus stratified token reservoirs for every target in every block. The stats already draw the quantization map. Attention and FFN inputs smooth well, the FFN down projection carries post-GELU spikes up to 835x the channel mean, and the cross attention outputs are small enough to just stay bf16. Reports in `results/rtx4090-2026-07-24/` (`collect_summary.json`, `timestep_histogram.json`, `outlier_report.json`), the 2.6 GB of raw token reservoirs travel on request.
+
 ## Limitations, stated before you find them
 
 - One prompt (a dancer in a warehouse), one resolution (832x480, the causal path hardcodes its RoPE for it), one GPU class, one day. The prompt is now a flag (`--prompt` or `BENCH_PROMPT`), so widen it.

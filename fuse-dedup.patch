@@ -1,0 +1,14 @@
+diff --git a/wan/modules/causal_model.py b/wan/modules/causal_model.py
+index 7eda922..13457f2 100644
+--- a/wan/modules/causal_model.py
++++ b/wan/modules/causal_model.py
+@@ -213,6 +213,9 @@ class CausalWanSelfAttention(nn.Module):
+         self.to_qkv.load_state_dict(
+             {"weight": concatenated_weights, "bias": concatenated_bias}, strict=True, assign=True
+         )
++        # the original projections were copied into to_qkv; drop them so their
++        # memory can be reclaimed (q/k/v are only used when fused_projections is False)
++        del self.q, self.k, self.v
+         self.fused_projections = True
+ 
+     def forward(
