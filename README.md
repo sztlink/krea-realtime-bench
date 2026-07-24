@@ -128,7 +128,15 @@ Then the loop itself, `bench_w4a4.py`, raw data in `results/rtx4090-2026-07-24/r
 
 - 17% faster on the small window, 67% faster on the global one. The recompute pass is GEMM-heavy, which is exactly what W4A4 accelerates, while the small-window frame is dominated by SDPA. Transformer weights after load are 1.07 GB against 2.84 GB in bf16.
 - Latents stay finite across 3 seeds and both windows, and the frames are coherent video (the dancer, the warehouse, the light). Last frames for both windows in `frames/`.
-- The W4A4 trajectory diverges from the bf16 one, as 27 autoregressive latent frames of few-percent per-module error must. Divergence is not a quality verdict. The fidelity ruler, per-step and multi-seed with error bars, is the next receipt, and it gates everything downstream.
+- The W4A4 trajectory diverges from the bf16 one, as 27 autoregressive latent frames of few-percent per-module error must. Divergence is not a quality verdict. The fidelity ruler below is.
+
+### The fidelity ruler, and why trajectory closeness is the wrong ask
+
+Before judging the W4A4 by its distance to the bf16 trajectory, we measured what that distance means. A 0.1% perturbation injected once into a single bf16 forward gets erased by the arithmetic itself, because bf16 resolves about 0.4% per element. A 1% perturbation injected once grows 48.7x over 27 autoregressive frames and heads toward the distance between two different seeds (`ruler_l5_chaos.py`, `chaos_floor.json`). The sampler is chaotic, so no sustained per-step error, including bf16's own rounding, can hold a trajectory close. Any ruler that demands it fails everything.
+
+So the ruler asks what can actually be held. Per-frame divergence against the bf16 reference stays below the distance between two valid videos for the whole clip (0.60x that control early, 0.88x late, 3 seeds). Cross-seed diversity inside the W4A4 model matches the bf16 model at a 0.89 ratio, so the model did not collapse. Latent statistics track bf16 within 10%. A double-length run of 18 chunks holds a settled std slope of 0.0071 per frame against bf16's own 0.0080, meaning the rise is the video gaining motion, not the quantization drifting. And the frame strips stay coherent to the last frame of the double-length run (`frames/strip_bf16_vs_w4a4.png`, rows bf16, W4A4, W4A4 at 18 chunks). All raw numbers in `ruler.json`, scripts `ruler_l5_runs.py` and `ruler_l5_metrics.py`.
+
+Verdict. The W4A4 makes a different video of the same prompt with the same stability, the same diversity and the same statistics as bf16, at 8.8 fps where bf16 gives 7.5. On this model the pipeline holds. The 14B is next, and it needs one A100 pass, not faith.
 
 ## Limitations, stated before you find them
 
