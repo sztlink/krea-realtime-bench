@@ -1,0 +1,83 @@
+{
+ "prompt": "A person dancing in an empty warehouse, dramatic lighting, camera static",
+ "seeds": [
+  42,
+  43,
+  44
+ ],
+ "kv_frames": 3,
+ "steps": 4,
+ "num_chunks": 9,
+ "reservoir_cap": 2048,
+ "k_per_call": 15,
+ "n_blocks": 40,
+ "dim": 5120,
+ "ffn_dim": 13824,
+ "total_calls": 132,
+ "streams": {
+  "self_qkv": {
+   "calls_seen": 132,
+   "tokens_seen": 617760,
+   "reservoir_tokens": 1980,
+   "dim": 5120,
+   "absmax_max": 26.25,
+   "absmax_p50": 2.15625
+  },
+  "self_o": {
+   "calls_seen": 132,
+   "tokens_seen": 617760,
+   "reservoir_tokens": 1980,
+   "dim": 5120,
+   "absmax_max": 10.4375,
+   "absmax_p50": 1.1484375
+  },
+  "cross_q": {
+   "calls_seen": 132,
+   "tokens_seen": 617760,
+   "reservoir_tokens": 1980,
+   "dim": 5120,
+   "absmax_max": 58.75,
+   "absmax_p50": 0.8984375
+  },
+  "cross_kv": {
+   "calls_seen": 3,
+   "tokens_seen": 1536,
+   "reservoir_tokens": 1536,
+   "dim": 5120,
+   "absmax_max": 0.5625,
+   "absmax_p50": 0.2392578125
+  },
+  "cross_o": {
+   "calls_seen": 132,
+   "tokens_seen": 617760,
+   "reservoir_tokens": 1980,
+   "dim": 5120,
+   "absmax_max": 0.478515625,
+   "absmax_p50": 0.0166015625
+  },
+  "ffn_up": {
+   "calls_seen": 132,
+   "tokens_seen": 617760,
+   "reservoir_tokens": 1980,
+   "dim": 5120,
+   "absmax_max": 8.5625,
+   "absmax_p50": 0.63671875
+  },
+  "ffn_down": {
+   "calls_seen": 132,
+   "tokens_seen": 617760,
+   "reservoir_tokens": 1980,
+   "dim": 13824,
+   "absmax_max": 8.0625,
+   "absmax_p50": 0.98828125
+  }
+ },
+ "timestep_histogram": {
+  "denoise@0.0": 27,
+  "denoise@1000.0": 27,
+  "denoise@713.98": 27,
+  "denoise@908.84": 27,
+  "recompute@0.0": 24
+ },
+ "disk_bytes": 6890960200
+}

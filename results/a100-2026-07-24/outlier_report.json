@@ -1,0 +1,72 @@
+{
+ "self_qkv": {
+  "outlier_ratio_median_of_blocks": 6.9,
+  "worst_channel_ratio": 31.2,
+  "worst_block": 3,
+  "top3_blocks": [
+   3,
+   2,
+   29
+  ]
+ },
+ "self_o": {
+  "outlier_ratio_median_of_blocks": 7.6,
+  "worst_channel_ratio": 86.6,
+  "worst_block": 33,
+  "top3_blocks": [
+   33,
+   3,
+   28
+  ]
+ },
+ "cross_q": {
+  "outlier_ratio_median_of_blocks": 7.3,
+  "worst_channel_ratio": 22.6,
+  "worst_block": 3,
+  "top3_blocks": [
+   3,
+   4,
+   2
+  ]
+ },
+ "cross_kv": {
+  "outlier_ratio_median_of_blocks": 89.0,
+  "worst_channel_ratio": 225.5,
+  "worst_block": 39,
+  "top3_blocks": [
+   39,
+   38,
+   37
+  ]
+ },
+ "cross_o": {
+  "outlier_ratio_median_of_blocks": 44.8,
+  "worst_channel_ratio": 17410.2,
+  "worst_block": 32,
+  "top3_blocks": [
+   32,
+   19,
+   28
+  ]
+ },
+ "ffn_up": {
+  "outlier_ratio_median_of_blocks": 7.6,
+  "worst_channel_ratio": 27.3,
+  "worst_block": 28,
+  "top3_blocks": [
+   28,
+   4,
+   3
+  ]
+ },
+ "ffn_down": {
+  "outlier_ratio_median_of_blocks": 14.2,
+  "worst_channel_ratio": 1644.2,
+  "worst_block": 33,
+  "top3_blocks": [
+   33,
+   6,
+   7
+  ]
+ }
+}

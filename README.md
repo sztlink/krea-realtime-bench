@@ -138,6 +138,25 @@ So the ruler asks what can actually be held. Per-frame divergence against the bf
 
 Verdict. The W4A4 makes a different video of the same prompt with the same stability, the same diversity and the same statistics as bf16, at 8.8 fps where bf16 gives 7.5. On this model the pipeline holds. The 14B is next, and it needs one A100 pass, not faith.
 
+## The A100 pass, and the proxy paying off (same day)
+
+One rented A100 80GB ran the proven chain against the 14B. Collect on the real loop took 8 minutes, calibration of all 40 blocks took 22.5 minutes, and the stock packer accepted every tensor again. The whole pass cost about $3.60 including a dead community host that billed 35 minutes without ever booting its container. Scripts in `cloud/setup_c.sh` and `cloud/driver_c.sh`, raw numbers in `results/a100-2026-07-24/`.
+
+The receipt that matters is the transfer. Per-stream simulated W4A4 output error, median across blocks, small model against big model.
+
+| stream | 1.3B | 14B |
+|---|---|---|
+| self qkv | 0.081 | 0.081 |
+| self out | 0.122 | 0.128 |
+| cross q | 0.120 | 0.079 |
+| cross out | 0.052 | 0.048 |
+| ffn up | 0.093 | 0.091 |
+| ffn down | 0.157 | 0.158 |
+
+The 1.3B predicted the 14B's calibration behavior stream by stream, with the qkv median matching to three decimals. The post-GELU outliers run twice as wild at 14B scale, one channel at 1644x its mean against 835x on the small model, and the smoothing plus the low-rank branch absorb them to the same final error. Debugging on the small model and spending cloud money only on the scaled pass is the whole method, and this table is what it bought.
+
+The converted checkpoint weighs 6.6 GB of quantized blocks plus 4.2 GB kept in bf16, against roughly 25 GB for the same blocks unquantized. Whether it generates on a 24 GB consumer card is the next receipt, and it runs on hardware we own.
+
 ## Limitations, stated before you find them
 
 - One prompt (a dancer in a warehouse), one resolution (832x480, the causal path hardcodes its RoPE for it), one GPU class, one day. The prompt is now a flag (`--prompt` or `BENCH_PROMPT`), so widen it.
