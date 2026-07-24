@@ -1,0 +1,462 @@
+2026-07-24 11:53:31.828 - DEBUG - Transformer import took: 0.00s
+2026-07-24 11:53:35.336 - DEBUG - Loading transformer state dict from checkpoints/krea-realtime-video-14b.safetensors
+2026-07-24 11:56:53.314 - DEBUG - Transformer load completed in: 201.49s, total: 201.49s
+2026-07-24 11:56:53.320 - DEBUG - Text encoder import took: 0.00s
+2026-07-24 11:56:55.226 - DEBUG - Text encoder load completed in: 1.91s, total: 1.91s
+2026-07-24 11:56:55.235 - DEBUG - Using demo_utils.vae_block3.VAEEncoderWrapper
+2026-07-24 11:56:55.235 - DEBUG - Using demo_utils.vae_block3.VAEDecoderWrapper
+2026-07-24 11:56:55.270 - INFO - loading wan_models/Wan2.1-T2V-1.3B/Wan2.1_VAE.pth
+2026-07-24 11:56:56.344 - DEBUG - VAE load completed in: 1.11s
+2026-07-24 11:56:56.376 - DEBUG - Pipeline import took: 0.01s
+2026-07-24 11:56:56.377 - DEBUG - Pipeline initialization completed in: 0.01s
+AUTOTUNE flex_attention(1x40x4736x128, 1x40x4736x128, 1x40x4736x128, 1x40x4736, 1x1x37, 1x1x37x37, 1x1x37, 1x1x37x37, 4736)
+strides: [24248320, 606208, 128, 1], [24248320, 606208, 128, 1], [24248320, 606208, 128, 1], [189440, 4736, 1], [37, 37, 1], [1369, 1369, 37, 1], [37, 37, 1], [1369, 1369, 37, 1], [1]
+dtypes: torch.bfloat16, torch.bfloat16, torch.bfloat16, torch.float32, torch.int32, torch.int32, torch.int32, torch.int32, torch.int64
+  triton_flex_attention_4 1.8368 ms 100.0% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+  triton_flex_attention_5 2.1772 ms 84.4% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=8
+  triton_flex_attention_2 2.2678 ms 81.0% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=2, num_warps=8
+  triton_flex_attention_3 2.3083 ms 79.6% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+  triton_flex_attention_0 3.3710 ms 54.5% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+  triton_flex_attention_1 4.4311 ms 41.5% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.3305 seconds and 2.6270 seconds precompiling for 6 choices
+AUTOTUNE flex_attention(1x40x9472x128, 1x40x9472x128, 1x40x9472x128, 1x40x9472, 1x1x74, 1x1x74x74, 1x1x74, 1x1x74x74, 9472)
+strides: [48496640, 1212416, 128, 1], [48496640, 1212416, 128, 1], [48496640, 1212416, 128, 1], [378880, 9472, 1], [74, 74, 1], [5476, 5476, 74, 1], [74, 74, 1], [5476, 5476, 74, 1], [1]
+dtypes: torch.bfloat16, torch.bfloat16, torch.bfloat16, torch.float32, torch.int32, torch.int32, torch.int32, torch.int32, torch.int64
+  triton_flex_attention_10 7.1931 ms 100.0% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+  triton_flex_attention_11 8.2858 ms 86.8% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=8
+  triton_flex_attention_8 8.6001 ms 83.6% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=2, num_warps=8
+  triton_flex_attention_9 8.8636 ms 81.2% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+  triton_flex_attention_6 12.7181 ms 56.6% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+  triton_flex_attention_7 16.7081 ms 43.1% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 0.5874 seconds and 2.4011 seconds precompiling for 6 choices
+AUTOTUNE flex_attention(1x40x14080x128, 1x40x14080x128, 1x40x14080x128, 1x40x14080, 1x1x110, 1x1x110x110, 1x1x110, 1x1x110x110, 14080)
+strides: [72089600, 1802240, 128, 1], [72089600, 1802240, 128, 1], [72089600, 1802240, 128, 1], [563200, 14080, 1], [110, 110, 1], [12100, 12100, 110, 1], [110, 110, 1], [12100, 12100, 110, 1], [1]
+dtypes: torch.bfloat16, torch.bfloat16, torch.bfloat16, torch.float32, torch.int32, torch.int32, torch.int32, torch.int32, torch.int64
+  triton_flex_attention_16 15.8491 ms 100.0% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+  triton_flex_attention_17 17.5562 ms 90.3% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=8
+  triton_flex_attention_14 18.6909 ms 84.8% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=2, num_warps=8
+  triton_flex_attention_15 19.5668 ms 81.0% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+  triton_flex_attention_12 27.2652 ms 58.1% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+  triton_flex_attention_13 36.4842 ms 43.4% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 1.0474 seconds and 2.4172 seconds precompiling for 6 choices
+AUTOTUNE flex_attention(1x40x18816x128, 1x40x18816x128, 1x40x18816x128, 1x40x18816, 1x1x147, 1x1x147x147, 1x1x147, 1x1x147x147, 18816)
+strides: [96337920, 2408448, 128, 1], [96337920, 2408448, 128, 1], [96337920, 2408448, 128, 1], [752640, 18816, 1], [147, 147, 1], [21609, 21609, 147, 1], [147, 147, 1], [21609, 21609, 147, 1], [1]
+dtypes: torch.bfloat16, torch.bfloat16, torch.bfloat16, torch.float32, torch.int32, torch.int32, torch.int32, torch.int32, torch.int64
+  triton_flex_attention_22 29.1729 ms 100.0% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=64, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+  triton_flex_attention_23 32.7037 ms 89.2% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=8
+  triton_flex_attention_20 33.1684 ms 88.0% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=2, num_warps=8
+  triton_flex_attention_21 35.2368 ms 82.8% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=64, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+  triton_flex_attention_18 48.3590 ms 60.3% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=64, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+  triton_flex_attention_19 64.6795 ms 45.1% BLOCKS_ARE_CONTIGUOUS=True, BLOCK_M=128, BLOCK_N=128, FLOAT32_PRECISION="'ieee'", GQA_SHARED_HEADS=1, HAS_FULL_BLOCKS=True, IS_DIVISIBLE=True, OUTPUT_LOGSUMEXP=False, PRESCALE_QK=False, QK_HEAD_DIM=128, QK_HEAD_DIM_ROUNDED=128, ROWS_GUARANTEED_SAFE=False, SAFE_HEAD_DIM=True, SM_SCALE=0.08838834764831843, SPARSE_KV_BLOCK_SIZE=128, SPARSE_Q_BLOCK_SIZE=128, USE_TMA=False, V_HEAD_DIM=128, V_HEAD_DIM_ROUNDED=128, WRITE_DQ=True, num_stages=3, num_warps=4
+SingleProcess AUTOTUNE benchmarking takes 1.8165 seconds and 2.4261 seconds precompiling for 6 choices
+SageAttention loaded successfully
+flash attn 2 available False
+flash attn 3 available False
+sage attn available True
+SAGEATTN_AVAILABLE: True
+DO_COMPILE False
+Loading WAN model, with name Wan2.1-T2V-14B
+timestep shift,  5.0
+Incompatible _IncompatibleKeys(missing_keys=['mean', 'std'], unexpected_keys=[]) while loading vae decoder
+KV inference with 3 frames per block
+LOAD OK {
+ "transformer": {
+  "sec": 201.5,
+  "torch_alloc_gb": 34.954,
+  "torch_reserved_gb": 63.632,
+  "device_used_gb": 64.26,
+  "device_total_gb": 85.017
+ },
+ "text_encoder": {
+  "sec": 1.9,
+  "torch_alloc_gb": 46.316,
+  "torch_reserved_gb": 73.209,
+  "device_used_gb": 73.932,
+  "device_total_gb": 85.017
+ },
+ "vae": {
+  "sec": 1.1,
+  "torch_alloc_gb": 46.578,
+  "torch_reserved_gb": 73.226,
+  "device_used_gb": 73.949,
+  "device_total_gb": 85.017
+ }
+}
+
+===== RUN full_kv3_s5 (kv=3 steps=5 seed=42) =====
+Initializing kv cache with shape:  [1, 9360, 40, 128]
+denoising step list:  tensor([1000.0000,  937.5000,  833.3333,  625.0000,    0.0000],
+       device='cuda:0')
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Generating block mask
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+{
+ "tag": "full_kv3_s5",
+ "kv_cache_num_frames": 3,
+ "steps": 5,
+ "seed": 42,
+ "num_blocks": 9,
+ "ok": true,
+ "kv_cache_gb": 7.668,
+ "crossattn_cache_gb": 0.419,
+ "kv_cache_tokens": [
+  1,
+  9360,
+  40,
+  128
+ ],
+ "wall_sec": 29.12,
+ "pixel_frames": 102,
+ "fps_e2e": 3.5,
+ "fps_steady": 3.79,
+ "prefill_ms": {
+  "n": 8,
+  "mean": 985.6,
+  "per_block": [
+   5483.8,
+   342.4,
+   341.7,
+   343.0,
+   342.8,
+   343.6,
+   343.6,
+   343.4
+  ]
+ },
+ "denoise_ms": {
+  "n": 45,
+  "mean": 403.7,
+  "steady_mean": 375.8
+ },
+ "peak_alloc_gb": 60.95,
+ "peak_reserved_gb": 64.919,
+ "mem_torch_alloc_gb": 56.721,
+ "mem_torch_reserved_gb": 64.919,
+ "mem_device_used_gb": 65.724,
+ "mem_device_total_gb": 85.017
+}
+
+===== RUN kv3_s4 (kv=3 steps=4 seed=42) =====
+Zero reinitialization of kv cache
+Zero reinitialization of crossattn cache
+denoising step list:  tensor([1000.0000,  908.8427,  713.9794,    0.0000], device='cuda:0')
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+{
+ "tag": "kv3_s4",
+ "kv_cache_num_frames": 3,
+ "steps": 4,
+ "seed": 42,
+ "num_blocks": 9,
+ "ok": true,
+ "kv_cache_gb": 7.668,
+ "crossattn_cache_gb": 0.419,
+ "kv_cache_tokens": [
+  1,
+  9360,
+  40,
+  128
+ ],
+ "wall_sec": 18.34,
+ "pixel_frames": 102,
+ "fps_e2e": 5.56,
+ "fps_steady": 5.71,
+ "prefill_ms": {
+  "n": 8,
+  "mean": 342.4,
+  "per_block": [
+   342.3,
+   341.8,
+   342.5,
+   342.1,
+   342.5,
+   342.4,
+   343.2,
+   342.8
+  ]
+ },
+ "denoise_ms": {
+  "n": 36,
+  "mean": 361.6,
+  "steady_mean": 365.6
+ },
+ "peak_alloc_gb": 49.589,
+ "peak_reserved_gb": 52.355,
+ "mem_torch_alloc_gb": 45.36,
+ "mem_torch_reserved_gb": 52.355,
+ "mem_device_used_gb": 53.16,
+ "mem_device_total_gb": 85.017
+}
+
+===== RUN kv6_s4 (kv=6 steps=4 seed=42) =====
+Initializing kv cache with shape:  [1, 14040, 40, 128]
+Zero reinitialization of crossattn cache
+denoising step list:  tensor([1000.0000,  908.8427,  713.9794,    0.0000], device='cuda:0')
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Generating block mask
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+{
+ "tag": "kv6_s4",
+ "kv_cache_num_frames": 6,
+ "steps": 4,
+ "seed": 42,
+ "num_blocks": 9,
+ "ok": true,
+ "kv_cache_gb": 11.502,
+ "crossattn_cache_gb": 0.419,
+ "kv_cache_tokens": [
+  1,
+  14040,
+  40,
+  128
+ ],
+ "wall_sec": 26.72,
+ "pixel_frames": 102,
+ "fps_e2e": 3.82,
+ "fps_steady": 3.81,
+ "prefill_ms": {
+  "n": 8,
+  "mean": 1261.3,
+  "per_block": [
+   343.7,
+   5449.7,
+   713.9,
+   714.6,
+   716.7,
+   718.5,
+   717.8,
+   715.4
+  ]
+ },
+ "denoise_ms": {
+  "n": 36,
+  "mean": 390.3,
+  "steady_mean": 397.6
+ },
+ "peak_alloc_gb": 54.979,
+ "peak_reserved_gb": 62.371,
+ "mem_torch_alloc_gb": 49.279,
+ "mem_torch_reserved_gb": 62.371,
+ "mem_device_used_gb": 63.178,
+ "mem_device_total_gb": 85.017
+}
+
+===== RUN kv12_s4 (kv=12 steps=4 seed=42) =====
+Initializing kv cache with shape:  [1, 23400, 40, 128]
+Zero reinitialization of crossattn cache
+denoising step list:  tensor([1000.0000,  908.8427,  713.9794,    0.0000], device='cuda:0')
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Generating block mask
+Zero reinitialization of kv cache
+Generating block mask
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+{
+ "tag": "kv12_s4",
+ "kv_cache_num_frames": 12,
+ "steps": 4,
+ "seed": 42,
+ "num_blocks": 9,
+ "ok": true,
+ "kv_cache_gb": 19.169,
+ "crossattn_cache_gb": 0.419,
+ "kv_cache_tokens": [
+  1,
+  23400,
+  40,
+  128
+ ],
+ "wall_sec": 39.17,
+ "pixel_frames": 102,
+ "fps_e2e": 2.6,
+ "fps_steady": 2.55,
+ "prefill_ms": {
+  "n": 8,
+  "mean": 2613.2,
+  "per_block": [
+   343.4,
+   715.9,
+   6131.4,
+   7343.2,
+   1595.5,
+   1595.5,
+   1587.9,
+   1593.0
+  ]
+ },
+ "denoise_ms": {
+  "n": 36,
+  "mean": 436.1,
+  "steady_mean": 449.3
+ },
+ "peak_alloc_gb": 66.431,
+ "peak_reserved_gb": 77.834,
+ "mem_torch_alloc_gb": 56.988,
+ "mem_torch_reserved_gb": 77.834,
+ "mem_device_used_gb": 78.64,
+ "mem_device_total_gb": 85.017
+}
+
+===== RUN kv21_s4 (kv=21 steps=4 seed=42) =====
+Initializing kv cache with shape:  [1, 37440, 40, 128]
+{
+ "tag": "kv21_s4",
+ "kv_cache_num_frames": 21,
+ "steps": 4,
+ "seed": 42,
+ "num_blocks": 9,
+ "ok": false,
+ "error": "OOM: CUDA out of memory. Tried to allocate 366.00 MiB. GPU 0 has a total capacity of 79.18 GiB of which 64.12 MiB is free. Process 3397089 has 79.11 GiB memory in use. Of the allocated memory 77.90 GiB is allocated by PyTorch, and 481.52 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+}
+
+===== RUN kv3_s4_seed43 (kv=3 steps=4 seed=43) =====
+Initializing kv cache with shape:  [1, 9360, 40, 128]
+Zero reinitialization of crossattn cache
+denoising step list:  tensor([1000.0000,  908.8427,  713.9794,    0.0000], device='cuda:0')
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+{
+ "tag": "kv3_s4_seed43",
+ "kv_cache_num_frames": 3,
+ "steps": 4,
+ "seed": 43,
+ "num_blocks": 9,
+ "ok": true,
+ "kv_cache_gb": 7.668,
+ "crossattn_cache_gb": 0.419,
+ "kv_cache_tokens": [
+  1,
+  9360,
+  40,
+  128
+ ],
+ "wall_sec": 18.48,
+ "pixel_frames": 102,
+ "fps_e2e": 5.52,
+ "fps_steady": 5.67,
+ "prefill_ms": {
+  "n": 8,
+  "mean": 344.5,
+  "per_block": [
+   344.4,
+   344.4,
+   344.4,
+   345.0,
+   343.8,
+   344.4,
+   345.5,
+   344.2
+  ]
+ },
+ "denoise_ms": {
+  "n": 36,
+  "mean": 365.0,
+  "steady_mean": 369.1
+ },
+ "peak_alloc_gb": 62.573,
+ "peak_reserved_gb": 66.314,
+ "mem_torch_alloc_gb": 45.36,
+ "mem_torch_reserved_gb": 66.314,
+ "mem_device_used_gb": 67.12,
+ "mem_device_total_gb": 85.017
+}
+
+===== RUN kv3_s4_seed44 (kv=3 steps=4 seed=44) =====
+Zero reinitialization of kv cache
+Zero reinitialization of crossattn cache
+denoising step list:  tensor([1000.0000,  908.8427,  713.9794,    0.0000], device='cuda:0')
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache2026-07-24 11:59:36.096 - DEBUG - Transformer import took: 0.00s
+2026-07-24 11:59:39.732 - DEBUG - Loading transformer state dict from checkpoints/krea-realtime-video-14b.safetensors
+
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+Zero reinitialization of kv cache
+{
+ "tag": "kv3_s4_seed44",
+ "kv_cache_num_frames": 3,
+ "steps": 4,
+ "seed": 44,
+ "num_blocks": 9,
+ "ok": true,
+ "kv_cache_gb": 7.668,
+ "crossattn_cache_gb": 0.419,
+ "kv_cache_tokens": [
+  1,
+  9360,
+  40,
+  128
+ ],
+ "wall_sec": 18.5,
+ "pixel_frames": 102,
+ "fps_e2e": 5.51,
+ "fps_steady": 5.66,
+ "prefill_ms": {
+  "n": 8,
+  "mean": 344.7,
+  "per_block": [
+   344.7,
+   344.8,
+   344.2,
+   344.1,
+   345.4,
+   344.3,
+   345.2,
+   344.9
+  ]
+ },
+ "denoise_ms": {
+  "n": 36,
+  "mean": 365.3,
+  "steady_mean": 369.3
+ },
+ "peak_alloc_gb": 49.591,
+ "peak_reserved_gb": 52.156,
+ "mem_torch_alloc_gb": 45.361,
+ "mem_torch_reserved_gb": 52.156,
+ "mem_device_used_gb": 52.962,
+ "mem_device_total_gb": 85.017
+}
+
+===== reload fp8 =====
+Loading WAN model, with name Wan2.1-T2V-14B
+timestep shift,  5.0
+
+===== M0.B DONE =====

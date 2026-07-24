@@ -1,0 +1,63 @@
+{
+ "meta": {
+  "fp8_load": {
+   "sec": 203.1,
+   "torch_alloc_gb": 17.441,
+   "device_used_gb": 67.164
+  },
+  "after_t5_offload": {
+   "torch_alloc_gb": 17.741,
+   "device_used_gb": 20.702
+  }
+ },
+ "runs": [
+  {
+   "tag": "fp8_kv3_s4",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "ok": true,
+   "wall_sec": 24.97,
+   "pixel_frames": 102,
+   "fps_e2e": 4.08,
+   "fps_steady": 4.24,
+   "prefill_ms_mean": 940.5,
+   "denoise_ms_mean": 407.8,
+   "peak_alloc_gb": 32.08,
+   "torch_alloc_gb": 27.851,
+   "device_used_gb": 36.118
+  },
+  {
+   "tag": "fp8_kv3_s4_seed43",
+   "kv": 3,
+   "steps": 4,
+   "seed": 43,
+   "ok": true,
+   "wall_sec": 19.75,
+   "pixel_frames": 102,
+   "fps_e2e": 5.16,
+   "fps_steady": 5.31,
+   "prefill_ms_mean": 376.4,
+   "denoise_ms_mean": 394.1,
+   "peak_alloc_gb": 32.081,
+   "torch_alloc_gb": 27.852,
+   "device_used_gb": 36.118
+  },
+  {
+   "tag": "fp8_kv3_s5",
+   "kv": 3,
+   "steps": 5,
+   "seed": 42,
+   "ok": true,
+   "wall_sec": 23.29,
+   "pixel_frames": 102,
+   "fps_e2e": 4.38,
+   "fps_steady": 4.52,
+   "prefill_ms_mean": 376.3,
+   "denoise_ms_mean": 393.8,
+   "peak_alloc_gb": 32.083,
+   "torch_alloc_gb": 27.853,
+   "device_used_gb": 36.118
+  }
+ ]
+}

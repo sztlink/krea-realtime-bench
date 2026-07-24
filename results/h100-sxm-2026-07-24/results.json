@@ -1,0 +1,397 @@
+{
+ "meta": {
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "torch": "2.8.0+cu128",
+  "config": "self_forcing_server_14b.yaml",
+  "prompt": "A person dancing in an empty warehouse, dramatic lighting, camera static",
+  "do_compile": "false",
+  "model_config": {
+   "dim": 5120,
+   "ffn_dim": 13824,
+   "num_heads": 40,
+   "num_layers": 40,
+   "patch_size": null,
+   "in_dim": 16,
+   "out_dim": 16
+  },
+  "param_count_transformer": 17434833984,
+  "param_count_t5": 5680910336,
+  "load_stages": {
+   "transformer": {
+    "sec": 201.5,
+    "torch_alloc_gb": 34.954,
+    "torch_reserved_gb": 63.632,
+    "device_used_gb": 64.26,
+    "device_total_gb": 85.017
+   },
+   "text_encoder": {
+    "sec": 1.9,
+    "torch_alloc_gb": 46.316,
+    "torch_reserved_gb": 73.209,
+    "device_used_gb": 73.932,
+    "device_total_gb": 85.017
+   },
+   "vae": {
+    "sec": 1.1,
+    "torch_alloc_gb": 46.578,
+    "torch_reserved_gb": 73.226,
+    "device_used_gb": 73.949,
+    "device_total_gb": 85.017
+   }
+  },
+  "after_t5_offload": {
+   "torch_alloc_gb": 43.394,
+   "torch_reserved_gb": 45.884,
+   "device_used_gb": 46.688,
+   "device_total_gb": 85.017
+  },
+  "fp8_error": "Traceback (most recent call last):\n  File \"/workspace/realtime-video/bench_m0b.py\", line 200, in <module>\n    t0 = time.time(); tr8 = load_transformer(cfg8); torch.cuda.synchronize()\n                            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/realtime-video/release_server.py\", line 174, in load_transformer\n    transformer.to(torch.cuda.current_device())\n  File \"/workspace/realtime-video/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 1369, in to\n    return self._apply(convert)\n           ^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/realtime-video/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 928, in _apply\n    module._apply(fn)\n  File \"/workspace/realtime-video/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 928, in _apply\n    module._apply(fn)\n  File \"/workspace/realtime-video/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 928, in _apply\n    module._apply(fn)\n  [Previous line repeated 2 more times]\n  File \"/workspace/realtime-video/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 955, in _apply\n    param_applied = fn(param)\n                    ^^^^^^^^^\n  File \"/workspace/realtime-video/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 1355, in convert\n    return t.to(\n           ^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 50.00 MiB. GPU 0 has a total capacity of 79.18 GiB of which 26.12 MiB is free. Process 3397089 has 79.14 GiB memory in use. Of the allocated memory 77.78 GiB is allocated by PyTorch, and 634.62 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+ },
+ "runs": [
+  {
+   "tag": "full_kv3_s5",
+   "kv_cache_num_frames": 3,
+   "steps": 5,
+   "seed": 42,
+   "num_blocks": 9,
+   "ok": true,
+   "kv_cache_gb": 7.668,
+   "crossattn_cache_gb": 0.419,
+   "kv_cache_tokens": [
+    1,
+    9360,
+    40,
+    128
+   ],
+   "wall_sec": 29.12,
+   "block_sec": [
+    3.788,
+    7.995,
+    2.479,
+    2.47,
+    2.473,
+    2.474,
+    2.478,
+    2.481,
+    2.48
+   ],
+   "pixel_frames": 102,
+   "fps_e2e": 3.5,
+   "fps_steady": 3.79,
+   "prefill_ms": {
+    "n": 8,
+    "mean": 985.6,
+    "per_block": [
+     5483.8,
+     342.4,
+     341.7,
+     343.0,
+     342.8,
+     343.6,
+     343.6,
+     343.4
+    ]
+   },
+   "denoise_ms": {
+    "n": 45,
+    "mean": 403.7,
+    "steady_mean": 375.8
+   },
+   "peak_alloc_gb": 60.95,
+   "peak_reserved_gb": 64.919,
+   "mem_torch_alloc_gb": 56.721,
+   "mem_torch_reserved_gb": 64.919,
+   "mem_device_used_gb": 65.724,
+   "mem_device_total_gb": 85.017
+  },
+  {
+   "tag": "kv3_s4",
+   "kv_cache_num_frames": 3,
+   "steps": 4,
+   "seed": 42,
+   "num_blocks": 9,
+   "ok": true,
+   "kv_cache_gb": 7.668,
+   "crossattn_cache_gb": 0.419,
+   "kv_cache_tokens": [
+    1,
+    9360,
+    40,
+    128
+   ],
+   "wall_sec": 18.34,
+   "block_sec": [
+    1.534,
+    2.081,
+    2.098,
+    2.1,
+    2.102,
+    2.105,
+    2.106,
+    2.106,
+    2.105
+   ],
+   "pixel_frames": 102,
+   "fps_e2e": 5.56,
+   "fps_steady": 5.71,
+   "prefill_ms": {
+    "n": 8,
+    "mean": 342.4,
+    "per_block": [
+     342.3,
+     341.8,
+     342.5,
+     342.1,
+     342.5,
+     342.4,
+     343.2,
+     342.8
+    ]
+   },
+   "denoise_ms": {
+    "n": 36,
+    "mean": 361.6,
+    "steady_mean": 365.6
+   },
+   "peak_alloc_gb": 49.589,
+   "peak_reserved_gb": 52.355,
+   "mem_torch_alloc_gb": 45.36,
+   "mem_torch_reserved_gb": 52.355,
+   "mem_device_used_gb": 53.16,
+   "mem_device_total_gb": 85.017
+  },
+  {
+   "tag": "kv6_s4",
+   "kv_cache_num_frames": 6,
+   "steps": 4,
+   "seed": 42,
+   "num_blocks": 9,
+   "ok": true,
+   "kv_cache_gb": 11.502,
+   "crossattn_cache_gb": 0.419,
+   "kv_cache_tokens": [
+    1,
+    14040,
+    40,
+    128
+   ],
+   "wall_sec": 26.72,
+   "block_sec": [
+    1.539,
+    2.096,
+    7.352,
+    2.619,
+    2.62,
+    2.62,
+    2.623,
+    2.622,
+    2.626
+   ],
+   "pixel_frames": 102,
+   "fps_e2e": 3.82,
+   "fps_steady": 3.81,
+   "prefill_ms": {
+    "n": 8,
+    "mean": 1261.3,
+    "per_block": [
+     343.7,
+     5449.7,
+     713.9,
+     714.6,
+     716.7,
+     718.5,
+     717.8,
+     715.4
+    ]
+   },
+   "denoise_ms": {
+    "n": 36,
+    "mean": 390.3,
+    "steady_mean": 397.6
+   },
+   "peak_alloc_gb": 54.979,
+   "peak_reserved_gb": 62.371,
+   "mem_torch_alloc_gb": 49.279,
+   "mem_torch_reserved_gb": 62.371,
+   "mem_device_used_gb": 63.178,
+   "mem_device_total_gb": 85.017
+  },
+  {
+   "tag": "kv12_s4",
+   "kv_cache_num_frames": 12,
+   "steps": 4,
+   "seed": 42,
+   "num_blocks": 9,
+   "ok": true,
+   "kv_cache_gb": 19.169,
+   "crossattn_cache_gb": 0.419,
+   "kv_cache_tokens": [
+    1,
+    23400,
+    40,
+    128
+   ],
+   "wall_sec": 39.17,
+   "block_sec": [
+    1.538,
+    2.097,
+    2.618,
+    8.177,
+    9.538,
+    3.8,
+    3.806,
+    3.796,
+    3.803
+   ],
+   "pixel_frames": 102,
+   "fps_e2e": 2.6,
+   "fps_steady": 2.55,
+   "prefill_ms": {
+    "n": 8,
+    "mean": 2613.2,
+    "per_block": [
+     343.4,
+     715.9,
+     6131.4,
+     7343.2,
+     1595.5,
+     1595.5,
+     1587.9,
+     1593.0
+    ]
+   },
+   "denoise_ms": {
+    "n": 36,
+    "mean": 436.1,
+    "steady_mean": 449.3
+   },
+   "peak_alloc_gb": 66.431,
+   "peak_reserved_gb": 77.834,
+   "mem_torch_alloc_gb": 56.988,
+   "mem_torch_reserved_gb": 77.834,
+   "mem_device_used_gb": 78.64,
+   "mem_device_total_gb": 85.017
+  },
+  {
+   "tag": "kv21_s4",
+   "kv_cache_num_frames": 21,
+   "steps": 4,
+   "seed": 42,
+   "num_blocks": 9,
+   "ok": false,
+   "error": "OOM: CUDA out of memory. Tried to allocate 366.00 MiB. GPU 0 has a total capacity of 79.18 GiB of which 64.12 MiB is free. Process 3397089 has 79.11 GiB memory in use. Of the allocated memory 77.90 GiB is allocated by PyTorch, and 481.52 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+  },
+  {
+   "tag": "kv3_s4_seed43",
+   "kv_cache_num_frames": 3,
+   "steps": 4,
+   "seed": 43,
+   "num_blocks": 9,
+   "ok": true,
+   "kv_cache_gb": 7.668,
+   "crossattn_cache_gb": 0.419,
+   "kv_cache_tokens": [
+    1,
+    9360,
+    40,
+    128
+   ],
+   "wall_sec": 18.48,
+   "block_sec": [
+    1.541,
+    2.099,
+    2.118,
+    2.119,
+    2.122,
+    2.118,
+    2.121,
+    2.122,
+    2.121
+   ],
+   "pixel_frames": 102,
+   "fps_e2e": 5.52,
+   "fps_steady": 5.67,
+   "prefill_ms": {
+    "n": 8,
+    "mean": 344.5,
+    "per_block": [
+     344.4,
+     344.4,
+     344.4,
+     345.0,
+     343.8,
+     344.4,
+     345.5,
+     344.2
+    ]
+   },
+   "denoise_ms": {
+    "n": 36,
+    "mean": 365.0,
+    "steady_mean": 369.1
+   },
+   "peak_alloc_gb": 62.573,
+   "peak_reserved_gb": 66.314,
+   "mem_torch_alloc_gb": 45.36,
+   "mem_torch_reserved_gb": 66.314,
+   "mem_device_used_gb": 67.12,
+   "mem_device_total_gb": 85.017
+  },
+  {
+   "tag": "kv3_s4_seed44",
+   "kv_cache_num_frames": 3,
+   "steps": 4,
+   "seed": 44,
+   "num_blocks": 9,
+   "ok": true,
+   "kv_cache_gb": 7.668,
+   "crossattn_cache_gb": 0.419,
+   "kv_cache_tokens": [
+    1,
+    9360,
+    40,
+    128
+   ],
+   "wall_sec": 18.5,
+   "block_sec": [
+    1.55,
+    2.101,
+    2.121,
+    2.119,
+    2.121,
+    2.122,
+    2.122,
+    2.125,
+    2.122
+   ],
+   "pixel_frames": 102,
+   "fps_e2e": 5.51,
+   "fps_steady": 5.66,
+   "prefill_ms": {
+    "n": 8,
+    "mean": 344.7,
+    "per_block": [
+     344.7,
+     344.8,
+     344.2,
+     344.1,
+     345.4,
+     344.3,
+     345.2,
+     344.9
+    ]
+   },
+   "denoise_ms": {
+    "n": 36,
+    "mean": 365.3,
+    "steady_mean": 369.3
+   },
+   "peak_alloc_gb": 49.591,
+   "peak_reserved_gb": 52.156,
+   "mem_torch_alloc_gb": 45.361,
+   "mem_torch_reserved_gb": 52.156,
+   "mem_device_used_gb": 52.962,
+   "mem_device_total_gb": 85.017
+  }
+ ]
+}
