@@ -157,6 +157,21 @@ The 1.3B predicted the 14B's calibration behavior stream by stream, with the qkv
 
 The converted checkpoint weighs 6.6 GB of quantized blocks plus 4.2 GB kept in bf16, against roughly 25 GB for the same blocks unquantized. Whether it generates on a 24 GB consumer card is the next receipt, and it runs on hardware we own.
 
+## Krea Realtime 14B generates video on one RTX 4090
+
+The first attempt missed by 442 MB. The loader never materializes the bf16 model anywhere, it builds the transformer skeleton on the meta device, assigns in the non-quantized tensors, recomputes the RoPE table and swaps the quantized slots straight onto the GPU (`bench_v.py`), and the whole model loads in 4.5 seconds at 11.25 GB. The generation then ran out of memory inside the VAE decode, because the cross-attention k and v projections, kept in bf16 by the calibration skip list, are 99.9 percent of that bf16 remainder at 14B scale. So they got quantized too, on the 4090 itself, in 130 seconds, from the calibration reservoirs the A100 pass had left on the Hub (`ptq_cross_kv.py`, median error 7.5 percent, the branch absorbing outlier channels that run at 80x their mean). Recalibration without renting anything, on the first day the workflow existed.
+
+With the blocks at 7.76 GB the model generates.
+
+| measure | value |
+|---|---|
+| fps steady, kv window 3, 4 steps, 832x480 | **2.81** (four runs, 2.78 to 2.81) |
+| peak VRAM | **22.78 GB** |
+| latents | finite, 3 seeds, three clearly distinct videos |
+| kv window 6 | does not fit, the window-3 cache is the card's envelope |
+
+Half the fps of the bf16 model on an H100, from a card that cannot even initialize the bf16 model. Frames and raw numbers in `results/rtx4090-2026-07-24/w4a4-14b/`. The remaining distance to real time runs through kernel fusion, the 4-bit KV cache, and spending the four-bit budget where the model needs it, and every one of those steps now iterates on a consumer card at zero marginal cost.
+
 ## Limitations, stated before you find them
 
 - One prompt (a dancer in a warehouse), one resolution (832x480, the causal path hardcodes its RoPE for it), one GPU class, one day. The prompt is now a flag (`--prompt` or `BENCH_PROMPT`), so widen it.

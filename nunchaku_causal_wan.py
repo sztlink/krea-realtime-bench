@@ -38,12 +38,6 @@ SVDQW4A4Linear = _import_svdq_linear()
 
 RENAMES = [(".lora_down", ".proj_down"), (".lora_up", ".proj_up"),
            (".smooth_orig", ".smooth_factor_orig"), (".smooth", ".smooth_factor")]
-# module local name -> (in_features, out_features)
-QUANT_SLOTS = [
-    ("self_attn.to_qkv", None), ("self_attn.o", None),
-    ("cross_attn.q", None), ("cross_attn.o", None),
-    ("ffn.0", None), ("ffn.2", None),
-]
 
 
 def _rename(key):
@@ -67,10 +61,13 @@ def load_w4a4_blocks(model, ckpt_dir, device="cuda", torch_dtype=torch.bfloat16)
         import json
         rank = json.loads(meta["quantization_config"]).get("rank", 32)
 
+    # quantized slots are whatever the checkpoint carries qweights for
+    slots = sorted({k[len("model.blocks.0."):].rsplit(".qweight", 1)[0]
+                    for k in sd if k.startswith("model.blocks.0.") and k.endswith(".qweight")})
     n_swapped = 0
     for i, blk in enumerate(model.blocks):
         prefix = f"model.blocks.{i}."
-        for local, _ in QUANT_SLOTS:
+        for local in slots:
             parent = blk
             *path, leaf = local.split(".")
             for p in path:

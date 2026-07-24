@@ -1,0 +1,125 @@
+{
+ "meta": {
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "torch": "2.8.0+cu128",
+  "load": {
+   "sec": 1.0,
+   "torch_alloc_gb": 8.228,
+   "device_used_gb": 8.679
+  }
+ },
+ "runs": [
+  {
+   "tag": "kv3_s4_warmup",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "ok": true,
+   "wall_sec": 37.73,
+   "pixel_frames": 102,
+   "block_sec": [
+    3.224,
+    4.621,
+    4.269,
+    4.27,
+    4.268,
+    4.267,
+    4.269,
+    4.27,
+    4.27
+   ],
+   "fps_e2e": 2.7,
+   "fps_steady": 2.78,
+   "peak_alloc_gb": 22.777,
+   "latents_finite": true,
+   "torch_alloc_gb": 18.549,
+   "device_used_gb": 24.23
+  },
+  {
+   "tag": "kv3_s4",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "ok": true,
+   "wall_sec": 37.12,
+   "pixel_frames": 102,
+   "block_sec": [
+    2.975,
+    4.232,
+    4.269,
+    4.271,
+    4.273,
+    4.273,
+    4.275,
+    4.278,
+    4.275
+   ],
+   "fps_e2e": 2.75,
+   "fps_steady": 2.81,
+   "peak_alloc_gb": 22.777,
+   "latents_finite": true,
+   "torch_alloc_gb": 18.549,
+   "device_used_gb": 24.146
+  },
+  {
+   "tag": "kv3_s4_seed43",
+   "kv": 3,
+   "steps": 4,
+   "seed": 43,
+   "ok": true,
+   "wall_sec": 37.14,
+   "pixel_frames": 102,
+   "block_sec": [
+    2.982,
+    4.236,
+    4.275,
+    4.275,
+    4.276,
+    4.276,
+    4.275,
+    4.274,
+    4.275
+   ],
+   "fps_e2e": 2.75,
+   "fps_steady": 2.81,
+   "peak_alloc_gb": 22.777,
+   "latents_finite": true,
+   "torch_alloc_gb": 18.549,
+   "device_used_gb": 24.272
+  },
+  {
+   "tag": "kv3_s4_seed44",
+   "kv": 3,
+   "steps": 4,
+   "seed": 44,
+   "ok": true,
+   "wall_sec": 37.15,
+   "pixel_frames": 102,
+   "block_sec": [
+    2.984,
+    4.237,
+    4.277,
+    4.276,
+    4.275,
+    4.276,
+    4.276,
+    4.275,
+    4.276
+   ],
+   "fps_e2e": 2.75,
+   "fps_steady": 2.81,
+   "peak_alloc_gb": 22.777,
+   "latents_finite": true,
+   "torch_alloc_gb": 18.549,
+   "device_used_gb": 24.355
+  },
+  {
+   "tag": "kv6_s4",
+   "kv": 6,
+   "steps": 4,
+   "seed": 42,
+   "ok": false,
+   "error": "ile \"/home/aya/realtime-diffusion/realtime-video/release_server.py\", line 549, in init_models\n    models.pipeline._initialize_kv_cache(batch_size=1, dtype=torch.bfloat16, device=gpu)\n  File \"/home/aya/realtime-diffusion/realtime-video/pipeline/causal_inference.py\", line 307, in _initialize_kv_cache\n    \"k\": torch.zeros(k_shape, dtype=dtype, device=device).contiguous(),\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 138.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 41.75 MiB is free. Including non-PyTorch memory, this process has 23.47 GiB memory in use. Of the allocated memory 22.95 GiB is allocated by PyTorch, and 34.88 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+  }
+ ]
+}
