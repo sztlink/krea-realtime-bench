@@ -67,6 +67,24 @@ The bench needs no Wan-14B weights. It instantiates the model from `config.json`
 
 A Spark's 128GB unified memory should run the full 21-frame global window that OOMs on an 80GB H100. Nobody has that number yet. Caveats we already know. The uv.lock and the sage wheel are x86_64, so on ARM use NVIDIA's pytorch container, install the deps by hand, and let attention fall back to SDPA. Memory numbers and the recompute curve stay comparable, absolute fps does not, and the receipt is valuable either way.
 
+## The full window curve (H200 141GB, same day)
+
+The H100 hit its wall at the 21-frame window, so we rented the bigger box and finished the curve. Steady-state prefill per block (median of settled blocks, first-touch compile excluded), `bench_kv21.py`, raw data in `results/h200-sxm-2026-07-24/`.
+
+| window (latent frames) | prefill/block | KV cache bf16 | peak alloc | fps steady |
+|---|---|---|---|---|
+| 3 | 338 ms | 7.7 GB | 49.6 GB | 4.40 |
+| 12 | 1592 ms | 19.2 GB | 62.6 GB | 2.38 |
+| 15 | 2046 ms | 23.0 GB | 77.9 GB | 2.76 |
+| 18 | 2567 ms | 26.8 GB | 85.5 GB | 2.52 |
+| 21 | ~2840 ms | 30.7 GB | **93.2 GB** | 2.37 |
+| 24 | refused | 34.5 GB allocated | — | — |
+
+- Cross-node sanity holds. Prefill at window 3 and 12 reproduces the H100 numbers within 1% (338 vs 342 ms, 1592 vs 1590 ms). Denoise per forward ran ~14% slower on this H200 node, so treat absolute fps across nodes with care, the curve shape is the finding.
+- Linearity confirmed across the whole range, roughly 130 to 143 ms of prefill per context frame, paid every block.
+- The 21-frame window peaks at **93.2 GB**. That is why an 80GB H100 OOMs, and the real bar for the full window in bf16.
+- **Window 24 is refused by the shipped code.** `WanDiffusionWrapper` hardcodes `seq_len = 32760` (exactly 21 frames at 832x480) and an assert fires in the prefill forward. The "global" window is not just expensive, it is the architectural ceiling of the release. Raising it is a one-line patch, the memory bill afterwards is not.
+
 ## Limitations, stated before you find them
 
 - One prompt (a dancer in a warehouse), one resolution (832x480, the causal path hardcodes its RoPE for it), one GPU class, one day. The prompt is now a flag (`--prompt` or `BENCH_PROMPT`), so widen it.
