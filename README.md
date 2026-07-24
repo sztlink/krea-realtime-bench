@@ -115,7 +115,20 @@ The collector's reservoirs fed an SVDQuant INT4 pass over all 30 blocks, with De
 
 Per-module simulated W4A4 output error against the real-loop reservoirs tells an inverted story. The cross attention output projection, the stream with the wildest outlier channels, came out cleanest at 5.2% median, so it went into the artifact after all. The FFN down projection is the honest worst at 15.7% median, and an ablation on its worst block splits the blame. With fp activations the error drops to 9.4%, with fp weights it only drops to 14.7%, so the activation side dominates, the rank 32 branch buys just 1.4 points there, and the named next lever is the unsigned activation shift the upstream recipe already supports, not a bigger rank and not GPTQ. Raw numbers in `results/rtx4090-2026-07-24/` (`ptq_report.json`, `ablate_ffn2.json`).
 
-A runtime for this checkpoint does not exist yet. The nunchaku port of the causal loop is the next stage, and the fidelity verdict belongs to trajectories, not to per-module floors.
+### The W4A4 runtime, running
+
+The port is deliberately small. Only the calibrated Linears become `SVDQW4A4Linear`, and the attention math, RoPE, norms, KV cache and server loop stay stock (`nunchaku_causal_wan.py`, loaded from the two-file checkpoint with the key renames the other nunchaku ports use). Before touching the loop, a unit test replays the captured mid-generation fixtures through the real sm89 kernel and compares against the bf16 reference. The kernel lands within a point of the calibration simulation on every slot (`test_w4a4_fixtures.py`), so the whole chain from collector to kernel is numerically coherent.
+
+Then the loop itself, `bench_w4a4.py`, raw data in `results/rtx4090-2026-07-24/results_w4a4.json`.
+
+| config | fps steady | peak VRAM | bf16 reference |
+|---|---|---|---|
+| kv window 3, 4 steps | **8.8** | 9.4 GB | 7.5 fps, 11.1 GB |
+| kv window 21 (global), 4 steps | **4.8** | 21.4 GB | 2.88 fps, 23.6 GB |
+
+- 17% faster on the small window, 67% faster on the global one. The recompute pass is GEMM-heavy, which is exactly what W4A4 accelerates, while the small-window frame is dominated by SDPA. Transformer weights after load are 1.07 GB against 2.84 GB in bf16.
+- Latents stay finite across 3 seeds and both windows, and the frames are coherent video (the dancer, the warehouse, the light). Last frames for both windows in `frames/`.
+- The W4A4 trajectory diverges from the bf16 one, as 27 autoregressive latent frames of few-percent per-module error must. Divergence is not a quality verdict. The fidelity ruler, per-step and multi-seed with error bars, is the next receipt, and it gates everything downstream.
 
 ## Limitations, stated before you find them
 

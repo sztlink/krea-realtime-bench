@@ -1,0 +1,110 @@
+{
+ "meta": {
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "torch": "2.8.0+cu128",
+  "checkpoint": "ptq_out/self-forcing-1p3b-w4a4",
+  "load": {
+   "sec": 8.0,
+   "torch_alloc_gb": 1.073,
+   "device_used_gb": 2.147
+  },
+  "param_count": 849217600
+ },
+ "runs": [
+  {
+   "tag": "kv3_s4_warmup",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "ok": true,
+   "wall_sec": 12.42,
+   "pixel_frames": 102,
+   "fps_e2e": 8.21,
+   "fps_steady": 8.5,
+   "peak_alloc_gb": 9.354,
+   "latents_finite": true,
+   "torch_alloc_gb": 5.127,
+   "device_used_gb": 11.045
+  },
+  {
+   "tag": "kv3_s4",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "ok": true,
+   "wall_sec": 11.83,
+   "pixel_frames": 102,
+   "fps_e2e": 8.62,
+   "fps_steady": 8.81,
+   "peak_alloc_gb": 9.354,
+   "latents_finite": true,
+   "torch_alloc_gb": 5.127,
+   "device_used_gb": 11.045,
+   "vs_bf16": {
+    "rmse": 0.8431,
+    "rel": 0.9446,
+    "cos": 0.5556
+   }
+  },
+  {
+   "tag": "kv3_s4_seed43",
+   "kv": 3,
+   "steps": 4,
+   "seed": 43,
+   "ok": true,
+   "wall_sec": 11.84,
+   "pixel_frames": 102,
+   "fps_e2e": 8.61,
+   "fps_steady": 8.8,
+   "peak_alloc_gb": 9.354,
+   "latents_finite": true,
+   "torch_alloc_gb": 5.127,
+   "device_used_gb": 10.961,
+   "vs_bf16": {
+    "rmse": 0.7363,
+    "rel": 0.8739,
+    "cos": 0.5859
+   }
+  },
+  {
+   "tag": "kv3_s4_seed44",
+   "kv": 3,
+   "steps": 4,
+   "seed": 44,
+   "ok": true,
+   "wall_sec": 11.84,
+   "pixel_frames": 102,
+   "fps_e2e": 8.61,
+   "fps_steady": 8.8,
+   "peak_alloc_gb": 9.354,
+   "latents_finite": true,
+   "torch_alloc_gb": 5.127,
+   "device_used_gb": 10.961,
+   "vs_bf16": {
+    "rmse": 0.675,
+    "rel": 0.8489,
+    "cos": 0.6462
+   }
+  },
+  {
+   "tag": "kv21_s4",
+   "kv": 21,
+   "steps": 4,
+   "seed": 42,
+   "ok": true,
+   "wall_sec": 20.95,
+   "pixel_frames": 102,
+   "fps_e2e": 4.87,
+   "fps_steady": 4.8,
+   "peak_alloc_gb": 21.378,
+   "latents_finite": true,
+   "torch_alloc_gb": 10.652,
+   "device_used_gb": 22.522,
+   "vs_bf16": {
+    "rmse": 0.6179,
+    "rel": 0.7985,
+    "cos": 0.6676
+   }
+  }
+ ]
+}
