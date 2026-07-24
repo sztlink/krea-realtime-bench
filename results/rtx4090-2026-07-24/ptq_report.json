@@ -1,0 +1,971 @@
+{
+ "config": {
+  "rank": 32,
+  "group": 64,
+  "pairs": 39,
+  "eval_iters": 4,
+  "final_iters": 64
+ },
+ "blocks": {
+  "0": {
+   "self_attn.q": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.03677
+   },
+   "self_attn.o": {
+    "alpha": 0.8,
+    "beta": 0.19999999999999996,
+    "rel_out_err": 0.0594
+   },
+   "cross_attn.q": {
+    "alpha": 0.8,
+    "beta": 0.0,
+    "rel_out_err": 0.03598
+   },
+   "cross_attn.o": {
+    "alpha": 0.65,
+    "beta": 0.0,
+    "rel_out_err": 0.03048
+   },
+   "ffn.0": {
+    "alpha": 0.7,
+    "beta": 0.0,
+    "rel_out_err": 0.04448
+   },
+   "ffn.2": {
+    "alpha": 0.3,
+    "beta": 0.0,
+    "rel_out_err": 0.03158
+   }
+  },
+  "1": {
+   "self_attn.q": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.0573
+   },
+   "self_attn.o": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.08269
+   },
+   "cross_attn.q": {
+    "alpha": 0.65,
+    "beta": 0.0,
+    "rel_out_err": 0.05274
+   },
+   "cross_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.05558
+   },
+   "ffn.0": {
+    "alpha": 0.6,
+    "beta": 0.0,
+    "rel_out_err": 0.04321
+   },
+   "ffn.2": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.09026
+   }
+  },
+  "2": {
+   "self_attn.q": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.06615
+   },
+   "self_attn.o": {
+    "alpha": 0.6,
+    "beta": 0.0,
+    "rel_out_err": 0.08723
+   },
+   "cross_attn.q": {
+    "alpha": 0.7,
+    "beta": 0.0,
+    "rel_out_err": 0.07195
+   },
+   "cross_attn.o": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.06175
+   },
+   "ffn.0": {
+    "alpha": 0.6,
+    "beta": 0.0,
+    "rel_out_err": 0.05722
+   },
+   "ffn.2": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.11274
+   }
+  },
+  "3": {
+   "self_attn.q": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.086
+   },
+   "self_attn.o": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.1009
+   },
+   "cross_attn.q": {
+    "alpha": 0.75,
+    "beta": 0.0,
+    "rel_out_err": 0.07271
+   },
+   "cross_attn.o": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.04376
+   },
+   "ffn.0": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.06094
+   },
+   "ffn.2": {
+    "alpha": 0.5,
+    "beta": 0.5,
+    "rel_out_err": 0.14417
+   }
+  },
+  "4": {
+   "self_attn.q": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.07835
+   },
+   "self_attn.o": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.11421
+   },
+   "cross_attn.q": {
+    "alpha": 0.75,
+    "beta": 0.25,
+    "rel_out_err": 0.09656
+   },
+   "cross_attn.o": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.05632
+   },
+   "ffn.0": {
+    "alpha": 0.65,
+    "beta": 0.0,
+    "rel_out_err": 0.0723
+   },
+   "ffn.2": {
+    "alpha": 0.5,
+    "beta": 0.5,
+    "rel_out_err": 0.14739
+   }
+  },
+  "5": {
+   "self_attn.q": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.06772
+   },
+   "self_attn.o": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.11812
+   },
+   "cross_attn.q": {
+    "alpha": 0.75,
+    "beta": 0.25,
+    "rel_out_err": 0.10803
+   },
+   "cross_attn.o": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.06496
+   },
+   "ffn.0": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.0812
+   },
+   "ffn.2": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.14652
+   }
+  },
+  "6": {
+   "self_attn.q": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.08502
+   },
+   "self_attn.o": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.13092
+   },
+   "cross_attn.q": {
+    "alpha": 0.85,
+    "beta": 0.15000000000000002,
+    "rel_out_err": 0.10638
+   },
+   "cross_attn.o": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.05203
+   },
+   "ffn.0": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.08431
+   },
+   "ffn.2": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.15378
+   }
+  },
+  "7": {
+   "self_attn.q": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.08126
+   },
+   "self_attn.o": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.13265
+   },
+   "cross_attn.q": {
+    "alpha": 0.75,
+    "beta": 0.25,
+    "rel_out_err": 0.10423
+   },
+   "cross_attn.o": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.06818
+   },
+   "ffn.0": {
+    "alpha": 0.6,
+    "beta": 0.0,
+    "rel_out_err": 0.08223
+   },
+   "ffn.2": {
+    "alpha": 0.5,
+    "beta": 0.5,
+    "rel_out_err": 0.15726
+   }
+  },
+  "8": {
+   "self_attn.q": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.07176
+   },
+   "self_attn.o": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.13074
+   },
+   "cross_attn.q": {
+    "alpha": 0.85,
+    "beta": 0.15000000000000002,
+    "rel_out_err": 0.11137
+   },
+   "cross_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.06951
+   },
+   "ffn.0": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.07928
+   },
+   "ffn.2": {
+    "alpha": 0.45,
+    "beta": 0.55,
+    "rel_out_err": 0.16155
+   }
+  },
+  "9": {
+   "self_attn.q": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.07965
+   },
+   "self_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.14134
+   },
+   "cross_attn.q": {
+    "alpha": 0.8,
+    "beta": 0.19999999999999996,
+    "rel_out_err": 0.11492
+   },
+   "cross_attn.o": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.05274
+   },
+   "ffn.0": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.08727
+   },
+   "ffn.2": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.15718
+   }
+  },
+  "10": {
+   "self_attn.q": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.08631
+   },
+   "self_attn.o": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.15775
+   },
+   "cross_attn.q": {
+    "alpha": 0.75,
+    "beta": 0.25,
+    "rel_out_err": 0.13131
+   },
+   "cross_attn.o": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.06325
+   },
+   "ffn.0": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.0912
+   },
+   "ffn.2": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.16275
+   }
+  },
+  "11": {
+   "self_attn.q": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.08204
+   },
+   "self_attn.o": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.16472
+   },
+   "cross_attn.q": {
+    "alpha": 0.8,
+    "beta": 0.19999999999999996,
+    "rel_out_err": 0.12366
+   },
+   "cross_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.05754
+   },
+   "ffn.0": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.09271
+   },
+   "ffn.2": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.16204
+   }
+  },
+  "12": {
+   "self_attn.q": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.07972
+   },
+   "self_attn.o": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.14545
+   },
+   "cross_attn.q": {
+    "alpha": 0.75,
+    "beta": 0.25,
+    "rel_out_err": 0.12864
+   },
+   "cross_attn.o": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.06851
+   },
+   "ffn.0": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.09228
+   },
+   "ffn.2": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.16121
+   }
+  },
+  "13": {
+   "self_attn.q": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.08161
+   },
+   "self_attn.o": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.16367
+   },
+   "cross_attn.q": {
+    "alpha": 0.75,
+    "beta": 0.25,
+    "rel_out_err": 0.12943
+   },
+   "cross_attn.o": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.06417
+   },
+   "ffn.0": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.09411
+   },
+   "ffn.2": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.17061
+   }
+  },
+  "14": {
+   "self_attn.q": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.08329
+   },
+   "self_attn.o": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.1531
+   },
+   "cross_attn.q": {
+    "alpha": 0.8,
+    "beta": 0.19999999999999996,
+    "rel_out_err": 0.12607
+   },
+   "cross_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.0555
+   },
+   "ffn.0": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.09375
+   },
+   "ffn.2": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.16629
+   }
+  },
+  "15": {
+   "self_attn.q": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.08985
+   },
+   "self_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.14523
+   },
+   "cross_attn.q": {
+    "alpha": 0.95,
+    "beta": 0.050000000000000044,
+    "rel_out_err": 0.12743
+   },
+   "cross_attn.o": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.05211
+   },
+   "ffn.0": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.09824
+   },
+   "ffn.2": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.16892
+   }
+  },
+  "16": {
+   "self_attn.q": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.08679
+   },
+   "self_attn.o": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.14408
+   },
+   "cross_attn.q": {
+    "alpha": 0.85,
+    "beta": 0.15000000000000002,
+    "rel_out_err": 0.13892
+   },
+   "cross_attn.o": {
+    "alpha": 0.3,
+    "beta": 0.0,
+    "rel_out_err": 0.06507
+   },
+   "ffn.0": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.10526
+   },
+   "ffn.2": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.17045
+   }
+  },
+  "17": {
+   "self_attn.q": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.07022
+   },
+   "self_attn.o": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.14265
+   },
+   "cross_attn.q": {
+    "alpha": 0.85,
+    "beta": 0.15000000000000002,
+    "rel_out_err": 0.13708
+   },
+   "cross_attn.o": {
+    "alpha": 0.3,
+    "beta": 0.0,
+    "rel_out_err": 0.07332
+   },
+   "ffn.0": {
+    "alpha": 0.65,
+    "beta": 0.0,
+    "rel_out_err": 0.10536
+   },
+   "ffn.2": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.14786
+   }
+  },
+  "18": {
+   "self_attn.q": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.07704
+   },
+   "self_attn.o": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.12647
+   },
+   "cross_attn.q": {
+    "alpha": 0.85,
+    "beta": 0.15000000000000002,
+    "rel_out_err": 0.12355
+   },
+   "cross_attn.o": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.0171
+   },
+   "ffn.0": {
+    "alpha": 0.25,
+    "beta": 0.0,
+    "rel_out_err": 0.10326
+   },
+   "ffn.2": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.1577
+   }
+  },
+  "19": {
+   "self_attn.q": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.08713
+   },
+   "self_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.12192
+   },
+   "cross_attn.q": {
+    "alpha": 0.85,
+    "beta": 0.15000000000000002,
+    "rel_out_err": 0.1182
+   },
+   "cross_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.01599
+   },
+   "ffn.0": {
+    "alpha": 0.6,
+    "beta": 0.0,
+    "rel_out_err": 0.09376
+   },
+   "ffn.2": {
+    "alpha": 0.3,
+    "beta": 0.0,
+    "rel_out_err": 0.16195
+   }
+  },
+  "20": {
+   "self_attn.q": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.0723
+   },
+   "self_attn.o": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.11892
+   },
+   "cross_attn.q": {
+    "alpha": 0.7,
+    "beta": 0.30000000000000004,
+    "rel_out_err": 0.12489
+   },
+   "cross_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.04499
+   },
+   "ffn.0": {
+    "alpha": 0.65,
+    "beta": 0.0,
+    "rel_out_err": 0.09352
+   },
+   "ffn.2": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.15478
+   }
+  },
+  "21": {
+   "self_attn.q": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.07833
+   },
+   "self_attn.o": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.12123
+   },
+   "cross_attn.q": {
+    "alpha": 0.7,
+    "beta": 0.30000000000000004,
+    "rel_out_err": 0.12038
+   },
+   "cross_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.04629
+   },
+   "ffn.0": {
+    "alpha": 0.6,
+    "beta": 0.0,
+    "rel_out_err": 0.10036
+   },
+   "ffn.2": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.16011
+   }
+  },
+  "22": {
+   "self_attn.q": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.09655
+   },
+   "self_attn.o": {
+    "alpha": 0.3,
+    "beta": 0.0,
+    "rel_out_err": 0.11448
+   },
+   "cross_attn.q": {
+    "alpha": 0.85,
+    "beta": 0.0,
+    "rel_out_err": 0.12008
+   },
+   "cross_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.01465
+   },
+   "ffn.0": {
+    "alpha": 0.6,
+    "beta": 0.0,
+    "rel_out_err": 0.09462
+   },
+   "ffn.2": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.17038
+   }
+  },
+  "23": {
+   "self_attn.q": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.09109
+   },
+   "self_attn.o": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.12553
+   },
+   "cross_attn.q": {
+    "alpha": 0.8,
+    "beta": 0.19999999999999996,
+    "rel_out_err": 0.11863
+   },
+   "cross_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.02334
+   },
+   "ffn.0": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.09878
+   },
+   "ffn.2": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.16662
+   }
+  },
+  "24": {
+   "self_attn.q": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.08875
+   },
+   "self_attn.o": {
+    "alpha": 0.25,
+    "beta": 0.0,
+    "rel_out_err": 0.11983
+   },
+   "cross_attn.q": {
+    "alpha": 0.8,
+    "beta": 0.0,
+    "rel_out_err": 0.12851
+   },
+   "cross_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.01154
+   },
+   "ffn.0": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.09757
+   },
+   "ffn.2": {
+    "alpha": 0.5,
+    "beta": 0.0,
+    "rel_out_err": 0.15828
+   }
+  },
+  "25": {
+   "self_attn.q": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.10012
+   },
+   "self_attn.o": {
+    "alpha": 0.25,
+    "beta": 0.0,
+    "rel_out_err": 0.11228
+   },
+   "cross_attn.q": {
+    "alpha": 0.85,
+    "beta": 0.0,
+    "rel_out_err": 0.12334
+   },
+   "cross_attn.o": {
+    "alpha": 0.25,
+    "beta": 0.0,
+    "rel_out_err": 0.01491
+   },
+   "ffn.0": {
+    "alpha": 0.7,
+    "beta": 0.0,
+    "rel_out_err": 0.09303
+   },
+   "ffn.2": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.14209
+   }
+  },
+  "26": {
+   "self_attn.q": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.10296
+   },
+   "self_attn.o": {
+    "alpha": 0.55,
+    "beta": 0.0,
+    "rel_out_err": 0.097
+   },
+   "cross_attn.q": {
+    "alpha": 0.9,
+    "beta": 0.0,
+    "rel_out_err": 0.12729
+   },
+   "cross_attn.o": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.02819
+   },
+   "ffn.0": {
+    "alpha": 0.7,
+    "beta": 0.0,
+    "rel_out_err": 0.09165
+   },
+   "ffn.2": {
+    "alpha": 0.5,
+    "beta": 0.5,
+    "rel_out_err": 0.1185
+   }
+  },
+  "27": {
+   "self_attn.q": {
+    "alpha": 0.65,
+    "beta": 0.0,
+    "rel_out_err": 0.08267
+   },
+   "self_attn.o": {
+    "alpha": 0.45,
+    "beta": 0.0,
+    "rel_out_err": 0.09771
+   },
+   "cross_attn.q": {
+    "alpha": 0.9,
+    "beta": 0.09999999999999998,
+    "rel_out_err": 0.11029
+   },
+   "cross_attn.o": {
+    "alpha": 0.35,
+    "beta": 0.0,
+    "rel_out_err": 0.0354
+   },
+   "ffn.0": {
+    "alpha": 0.7,
+    "beta": 0.0,
+    "rel_out_err": 0.09327
+   },
+   "ffn.2": {
+    "alpha": 0.55,
+    "beta": 0.44999999999999996,
+    "rel_out_err": 0.1081
+   }
+  },
+  "28": {
+   "self_attn.q": {
+    "alpha": 0.65,
+    "beta": 0.0,
+    "rel_out_err": 0.06847
+   },
+   "self_attn.o": {
+    "alpha": 0.6,
+    "beta": 0.0,
+    "rel_out_err": 0.0953
+   },
+   "cross_attn.q": {
+    "alpha": 0.95,
+    "beta": 0.050000000000000044,
+    "rel_out_err": 0.11384
+   },
+   "cross_attn.o": {
+    "alpha": 0.4,
+    "beta": 0.0,
+    "rel_out_err": 0.03704
+   },
+   "ffn.0": {
+    "alpha": 0.65,
+    "beta": 0.0,
+    "rel_out_err": 0.08927
+   },
+   "ffn.2": {
+    "alpha": 0.6,
+    "beta": 0.4,
+    "rel_out_err": 0.10134
+   }
+  },
+  "29": {
+   "self_attn.q": {
+    "alpha": 0.7,
+    "beta": 0.0,
+    "rel_out_err": 0.07753
+   },
+   "self_attn.o": {
+    "alpha": 0.55,
+    "beta": 0.44999999999999996,
+    "rel_out_err": 0.08552
+   },
+   "cross_attn.q": {
+    "alpha": 0.95,
+    "beta": 0.050000000000000044,
+    "rel_out_err": 0.12328
+   },
+   "cross_attn.o": {
+    "alpha": 0.3,
+    "beta": 0.0,
+    "rel_out_err": 0.04479
+   },
+   "ffn.0": {
+    "alpha": 0.75,
+    "beta": 0.0,
+    "rel_out_err": 0.07735
+   },
+   "ffn.2": {
+    "alpha": 0.65,
+    "beta": 0.35,
+    "rel_out_err": 0.03838
+   }
+  }
+ }
+}

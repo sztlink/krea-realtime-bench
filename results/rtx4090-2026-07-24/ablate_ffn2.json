@@ -1,0 +1,18 @@
+{
+ "block13": {
+  "alpha": 0.35,
+  "w4a4_branch": 0.1701,
+  "w4_fp_acts": 0.0937,
+  "a4_fp_wgts": 0.1469,
+  "w4a4_no_branch": 0.184,
+  "w4a4_no_smooth": 0.1787
+ },
+ "block0": {
+  "alpha": 0.25,
+  "w4a4_branch": 0.0316,
+  "w4_fp_acts": 0.0185,
+  "a4_fp_wgts": 0.0283,
+  "w4a4_no_branch": 0.0378,
+  "w4a4_no_smooth": 0.033
+ }
+}
