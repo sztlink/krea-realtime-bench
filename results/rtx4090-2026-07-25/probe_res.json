@@ -1,0 +1,190 @@
+{
+  "tag": "res",
+  "kv": 6,
+  "period": "inf",
+  "sink": 1,
+  "seed": 42,
+  "contraste_mediana": 0.2373,
+  "blocos": [
+    {
+      "bloco": 0,
+      "entropia_norm": 0.7126,
+      "peso_max": 0.09927,
+      "massa_ancora": 0.37725,
+      "Lk": 4680,
+      "contraste": 0.2578,
+      "contraste_min": 0.2564,
+      "cinza": false
+    },
+    {
+      "bloco": 1,
+      "entropia_norm": 0.6909,
+      "peso_max": 0.09623,
+      "massa_ancora": 0.12768,
+      "Lk": 9360,
+      "contraste": 0.2563,
+      "contraste_min": 0.2509,
+      "cinza": false
+    },
+    {
+      "bloco": 2,
+      "entropia_norm": 0.6841,
+      "peso_max": 0.09245,
+      "massa_ancora": 0.08346,
+      "Lk": 14040,
+      "contraste": 0.2517,
+      "contraste_min": 0.2428,
+      "cinza": false
+    },
+    {
+      "bloco": 3,
+      "entropia_norm": 0.6813,
+      "peso_max": 0.093,
+      "massa_ancora": 0.08043,
+      "Lk": 14040,
+      "contraste": 0.247,
+      "contraste_min": 0.2369,
+      "cinza": false
+    },
+    {
+      "bloco": 4,
+      "entropia_norm": 0.6773,
+      "peso_max": 0.09526,
+      "massa_ancora": 0.07817,
+      "Lk": 14040,
+      "contraste": 0.2392,
+      "contraste_min": 0.2309,
+      "cinza": false
+    },
+    {
+      "bloco": 5,
+      "entropia_norm": 0.6765,
+      "peso_max": 0.09508,
+      "massa_ancora": 0.0784,
+      "Lk": 14040,
+      "contraste": 0.2394,
+      "contraste_min": 0.2308,
+      "cinza": false
+    },
+    {
+      "bloco": 6,
+      "entropia_norm": 0.6756,
+      "peso_max": 0.0975,
+      "massa_ancora": 0.08293,
+      "Lk": 14040,
+      "contraste": 0.2371,
+      "contraste_min": 0.2306,
+      "cinza": false
+    },
+    {
+      "bloco": 7,
+      "entropia_norm": 0.6749,
+      "peso_max": 0.09736,
+      "massa_ancora": 0.08072,
+      "Lk": 14040,
+      "contraste": 0.2394,
+      "contraste_min": 0.2296,
+      "cinza": false
+    },
+    {
+      "bloco": 8,
+      "entropia_norm": 0.6775,
+      "peso_max": 0.09744,
+      "massa_ancora": 0.08583,
+      "Lk": 14040,
+      "contraste": 0.2457,
+      "contraste_min": 0.2389,
+      "cinza": false
+    },
+    {
+      "bloco": 9,
+      "entropia_norm": 0.6781,
+      "peso_max": 0.09685,
+      "massa_ancora": 0.08928,
+      "Lk": 14040,
+      "contraste": 0.2374,
+      "contraste_min": 0.2315,
+      "cinza": false
+    },
+    {
+      "bloco": 10,
+      "entropia_norm": 0.682,
+      "peso_max": 0.0961,
+      "massa_ancora": 0.08319,
+      "Lk": 14040,
+      "contraste": 0.2388,
+      "contraste_min": 0.2291,
+      "cinza": false
+    },
+    {
+      "bloco": 11,
+      "entropia_norm": 0.682,
+      "peso_max": 0.09345,
+      "massa_ancora": 0.06978,
+      "Lk": 14040,
+      "contraste": 0.233,
+      "contraste_min": 0.2148,
+      "cinza": false
+    },
+    {
+      "bloco": 12,
+      "entropia_norm": 0.7004,
+      "peso_max": 0.08036,
+      "massa_ancora": 0.07841,
+      "Lk": 14040,
+      "contraste": 0.1998,
+      "contraste_min": 0.1867,
+      "cinza": true
+    },
+    {
+      "bloco": 13,
+      "entropia_norm": 0.6945,
+      "peso_max": 0.08514,
+      "massa_ancora": 0.06742,
+      "Lk": 14040,
+      "contraste": 0.2331,
+      "contraste_min": 0.2107,
+      "cinza": false
+    },
+    {
+      "bloco": 14,
+      "entropia_norm": 0.6874,
+      "peso_max": 0.08968,
+      "massa_ancora": 0.07019,
+      "Lk": 14040,
+      "contraste": 0.2337,
+      "contraste_min": 0.2283,
+      "cinza": false
+    },
+    {
+      "bloco": 15,
+      "entropia_norm": 0.6903,
+      "peso_max": 0.08675,
+      "massa_ancora": 0.07307,
+      "Lk": 14040,
+      "contraste": 0.2114,
+      "contraste_min": 0.1918,
+      "cinza": true
+    },
+    {
+      "bloco": 16,
+      "entropia_norm": 0.6966,
+      "peso_max": 0.08083,
+      "massa_ancora": 0.06597,
+      "Lk": 14040,
+      "contraste": 0.2148,
+      "contraste_min": 0.2041,
+      "cinza": false
+    },
+    {
+      "bloco": 17,
+      "entropia_norm": 0.6844,
+      "peso_max": 0.08834,
+      "massa_ancora": 0.05454,
+      "Lk": 14040,
+      "contraste": 0.2313,
+      "contraste_min": 0.2199,
+      "cinza": false
+    }
+  ]
+}

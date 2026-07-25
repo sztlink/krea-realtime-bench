@@ -1,0 +1,65 @@
+{
+ "rc_kv6_s42": {
+  "frames": 210,
+  "sat_mediana": 0.4158,
+  "sat_min": 0.3847,
+  "con_mediana": 0.2136,
+  "con_min": 0.188,
+  "quedas_saturacao": [],
+  "quedas_contraste": [],
+  "quedas_nas_duas": [],
+  "profundidade_contraste": {
+   "queda_max_pct": 12.0,
+   "frames_abaixo_de_85pct": 0,
+   "fracao_abaixo_de_85pct": 0.0
+  },
+  "profundidade_saturacao": {
+   "queda_max_pct": 7.5,
+   "frames_abaixo_de_85pct": 0,
+   "fracao_abaixo_de_85pct": 0.0
+  },
+  "blocos_das_quedas": []
+ },
+ "rc_kv6_s43": {
+  "frames": 210,
+  "sat_mediana": 0.4215,
+  "sat_min": 0.3748,
+  "con_mediana": 0.246,
+  "con_min": 0.2193,
+  "quedas_saturacao": [],
+  "quedas_contraste": [],
+  "quedas_nas_duas": [],
+  "profundidade_contraste": {
+   "queda_max_pct": 10.9,
+   "frames_abaixo_de_85pct": 0,
+   "fracao_abaixo_de_85pct": 0.0
+  },
+  "profundidade_saturacao": {
+   "queda_max_pct": 11.1,
+   "frames_abaixo_de_85pct": 0,
+   "fracao_abaixo_de_85pct": 0.0
+  },
+  "blocos_das_quedas": []
+ },
+ "rc_kv6_s44": {
+  "frames": 210,
+  "sat_mediana": 0.3596,
+  "sat_min": 0.3175,
+  "con_mediana": 0.2377,
+  "con_min": 0.2211,
+  "quedas_saturacao": [],
+  "quedas_contraste": [],
+  "quedas_nas_duas": [],
+  "profundidade_contraste": {
+   "queda_max_pct": 7.0,
+   "frames_abaixo_de_85pct": 0,
+   "fracao_abaixo_de_85pct": 0.0
+  },
+  "profundidade_saturacao": {
+   "queda_max_pct": 11.7,
+   "frames_abaixo_de_85pct": 0,
+   "fracao_abaixo_de_85pct": 0.0
+  },
+  "blocos_das_quedas": []
+ }
+}

@@ -207,6 +207,86 @@ Latents stayed finite in all twelve runs of both prompts, and the resident regim
 
 One negative result worth publishing. We tried to settle the ordering with a CLIP retention curve, frame t against frame 0, and it does not measure what it looks like it measures. On the moving-camera prompt retention rose monotonically as resets got rarer, which would rank upstream last, and the reason is that the metric was tracking how much the camera moved rather than how much identity drifted. On the static-camera prompt it registered the drift correctly, around 20 to 23 percent loss by the last third, but the spread between seeds was larger than the spread between regimes, so it separates nothing at n=3. A whole-frame embedding is the wrong probe here. The next ruler crops the subject (`ruler_identity.py`, `ruler-dance.json`, `ruler-skate.json`).
 
+## The cache goes to four bits, and the twelve frame window opens
+
+The cache is a list of 40 dicts holding `[1, S, 40, 128]` bf16 keys and values, and the runtime touches them in exactly three operations, a slice write, a rolling eviction and a slice read, plus `.shape` and `.zero_()`. So `quant_kv.py` swaps in an object that behaves like a tensor across those three and nothing upstream gets forked. Storage is int4 packed two values per byte with one scale per token, per head, per rotary band. Reads dequantize the requested window, and the transient is per layer, about 192 MB of live bf16 at a time against 7.67 GB resident.
+
+Two design choices came out of measurement on real post-rotary keys pulled from a live generation (`test_quant_kv.py`, `results/rtx4090-2026-07-25/fixtures.json`). Rotary embedding pairs adjacent channels, verified in `causal_rope_apply`, so a contiguous group never splits a pair. But the frequencies split into three bands, real channels `[0:44)` temporal and `[44:86)`, `[86:128)` spatial, and a blind group of 64 straddles that boundary.
+
+| scheme | key error | value error | bytes vs bf16 | temporal band, layer 39 |
+|---|---|---|---|---|
+| int4, blind groups of 64 | 0.130 | 0.114 | 0.266 | **0.176** |
+| int4, rotary bands | 0.119 | 0.107 | 0.273 | 0.127 |
+| int4, blind groups of 32 | 0.110 | 0.101 | 0.281 | 0.138 |
+| int4, bands subdivided by 4 | **0.080** | 0.080 | 0.344 | **0.084** |
+| int8, rotary bands | 0.0076 | 0.0063 | 0.523 | 0.0076 |
+
+The blind grouping costs 40 percent more error in the temporal band alone, and error that tracks frame position is the worst kind to have in video. Subdividing inside the bands and never across them halves the key error for 7 percent more bytes. Keys quantize 11 percent harder than values, which is what a key being an address and a value being content predicts.
+
+The reference implementation loops over bands in Python and cost 20 to 31 percent of the frame in format conversion, so it got two fused Triton kernels, one program per token and head (`quant_kv_kernels.py`, `test_kernels.py`). Dequantization is bit identical to the reference and 10 to 13 times faster, quantization differs only on rounding ties. The number that decided the design is that dequantization went flat in group count, 0.188 against 0.174 against 0.176 milliseconds for three, six and twelve groups, so the finest grouping became free on the path that dominates. Conversion fell to between 1.3 and 2.6 percent of the frame.
+
+| configuration | cache | peak | free | fps |
+|---|---|---|---|---|
+| bf16, 3 frame window (the M1 gate) | 7.67 | 22.78 | 1.02 | 2.78 |
+| int4, 3 frame window | **2.10** | 17.21 | 6.37 | 2.30 |
+| int4 with fused kernels, 3 frames, no rebuild | 2.10 | 19.02 | — | **2.96** |
+| **bf16, 6 frame window** | 11.50 | — | — | **out of memory** |
+| int4, 6 frame window, rebuild every 4th block | 3.15 | 20.40 | — | 2.52 |
+| int4, 12 frame window, rebuild every 4th block | 5.24 | 23.16 | — | **1.99** |
+
+Quantizing the cache frees 5.571 GB. The 6 and 12 frame windows run for the first time, and in bf16 the 12 frame cache alone would need 19.2 GB.
+
+One measurement caveat that cost a 2x error before it was caught. Any run that follows an out of memory failure in the same process is not trustworthy, because allocator state after OOM degrades and `empty_cache` does not undo it. The 6 frame window measured 0.84 fps that way and 1.74 in a clean process (`diag_kv6.json`).
+
+## Transient grey, found by eye, and the mechanism
+
+Watching the long window clips turned up something no metric here had caught. Short moments where everything goes slightly grey and recovers, two in the 12 frame clip and one in the 6 frame clip. Finite latents, stable magnitudes and an identity retention curve all reported the clips were fine, and that retention curve turned out to be tracking camera motion rather than identity, which is filed below as a negative result.
+
+Measuring frame contrast located the events exactly where they were reported (`find_grey.py`). The description offered alongside the observation turned out to be the mechanism. Mixing modelling clay of every colour gives grey, because an average of many different things tends toward the middle. Attention does this literally. When the distribution spreads instead of selecting, the output is a mean over many values, and a mean of diverse states has low variance.
+
+Probing the attention distribution per block confirms it (`probe_attention.py`, 32 query positions, layers 0, 13, 27, 39).
+
+| 6 frame window, blocks 2 onward | resident cache | rebuild every block |
+|---|---|---|
+| corr(max attention weight, contrast) | **+0.794** | +0.33 |
+| corr(entropy, contrast) | **−0.769** | +0.84 |
+| range of max attention weight | 0.0171 | **0.0033** |
+| range of entropy | 0.0255 | **0.0065** |
+| grey blocks | 12 and 15 | none |
+
+In the rebuild regime both signals sit flat within a fifth of the range and no grey appears, so its correlations are noise on a flat signal. Krea's cache rebuild works because it derives every key from one clean context at timestep zero, which leaves the keys homogeneous and comparable.
+
+Controls, four runs each on the 6 frame window. Quantization is not the cause, an int8 cache with 15 times less error keeps the event. Requantizing survivors during eviction is not the cause either, a lossless packed move fixed that and the grey stayed. Dropping the bf16 anchor is as damaging as quadrupling the window, 40 affected frames against 7 to 22.
+
+## A sensor that fires on spread does not work, and why
+
+The obvious instrument is a reset that fires when the mixture starts turning grey instead of every fixed number of blocks. It fails (`adaptive_reset.py`). The sensor costs about 2 percent of the frame and predicts the collapse, but the gate fires once in eighteen blocks and lands where the resident regime already was, 30, 2 and 3 affected frames against 15, 7 and 11.
+
+The reason is worth more than the feature. Homogeneity behaves as a continuous property that survives by never being allowed to break, rather than a state that gets repaired afterward. By the time a sensor reports, the damage already sits in the cache, and one cleanup buys a single block before the accumulation resumes.
+
+## The reset period as a measured curve
+
+Twelve frame window, four seeds, 210 frames each.
+
+| rebuild period | fps | degraded frames per seed | worst contrast drop | rebuilds |
+|---|---|---|---|---|
+| every block (released behaviour) | 1.45 | 0, 0, 0, 0 | 6.9% | 18 |
+| every 2 blocks | 1.79 | 2, 0, 0, 0 | 10.7% | 9 |
+| **every 4 blocks** | **1.99** | **0, 0, 0, 0** | 8.7% | 5 |
+| never | 2.29 | **32, 35, 30, 28** | **37.6%** | 1 |
+
+Never rebuilding degrades 28 to 35 frames out of 210 in every single seed. Any finite period gives zero. Rebuilding every fourth block runs 37 percent faster than the released behaviour with nothing given up that this ruler can see.
+
+The last comparison inverted the expectation. Under a finite rebuild period the 12 frame window is more stable than the 6 frame window, zero degraded frames against seven, worst drop 8.7 percent against 11.5, because the clean context rebuilt each time carries eleven frames of history instead of five and attention has more homogeneous material to select from. The long window buys stability, and it reads as a cost only when the rebuild is removed.
+
+![No rebuild against rebuild every fourth block](results/rtx4090-2026-07-25/kv12-n4-strip.jpg)
+
+*Twelve frames of context on one RTX 4090, four bit weights and a four bit cache, 832x480, 4 steps, seed 42, columns aligned by frame index. Top row never rebuilds the cache, bottom row rebuilds every fourth block at 1.99 fps.*
+
+## A negative result on measuring identity drift
+
+Before the contrast measurement, the plan was to settle the reset question with a CLIP retention curve, frame t against frame 0, and it does not measure what it looks like it measures. On the moving camera prompt retention rose monotonically as rebuilds got rarer, which would rank the released behaviour last, and the reason is that a whole frame embedding tracks how much the camera moved. On the static camera prompt it registered drift correctly, 20 to 23 percent loss by the last third, but the spread between seeds exceeded the spread between regimes so it separates nothing at three seeds. Crop the subject instead (`ruler_identity.py`, `ruler-dance.json`, `ruler-skate.json`).
+
 ## Limitations, stated before you find them
 
 - One prompt (a dancer in a warehouse), one resolution (832x480, the causal path hardcodes its RoPE for it), one GPU class, one day. The prompt is now a flag (`--prompt` or `BENCH_PROMPT`), so widen it.
@@ -215,6 +295,9 @@ One negative result worth publishing. We tried to settle the ordering with a CLI
 - n=1 on hardware. That is the whole point of the receipt format below.
 - The reset-period sweep is 3 seeds per regime on two prompts. "Quality is very close in all of them" is one pair of eyes on unlabeled clips, not a measured equivalence, and the ruler we tried could not separate the regimes at that sample size. Read it as no visible penalty found, not as no penalty.
 - `torch.compile` is reported as unusable on this build for a specific reason, opaque pybind kernels plus no memory headroom. Both conditions can change. A dispatcher-registered kernel or a smaller resident footprint would reopen it.
+- The grey collapse is measured by frame contrast, which is a proxy. It was found by eye first, and the ruler was built afterward to match what the eye had already located. It does not detect identity drift, which an eye catches and which no metric here catches yet.
+- The reset period curve is four seeds on one prompt at one window. "Any finite period beats none" is solid across every seed. "Every fourth block is the best finite period" is not, the finite periods sit inside each other's spread.
+- W4A4 attention is nondeterministic across runs, so the same seed and the same configuration do not reproduce. Single runs are anecdotes here, which is why everything above is reported per seed.
 
 ## Send back a receipt
 

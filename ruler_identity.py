@@ -51,7 +51,7 @@ def embed_clip_frames(clip_dir, stride=STRIDE, batch=64):
     return torch.cat(embs), len(frames)
 
 def curve(embs):
-    """Retenção contra o frame 0 e coerência local (frame a frame)."""
+    """Retention against frame 0, and local coherence frame to frame."""
     ref = embs[:1]
     to_ref = (embs @ ref.T).squeeze(1)                  # cos(t, 0)
     local = (embs[1:] * embs[:-1]).sum(-1)              # cos(t, t-1)

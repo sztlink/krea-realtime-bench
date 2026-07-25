@@ -1,0 +1,190 @@
+{
+  "tag": "recomp",
+  "kv": 6,
+  "period": 1,
+  "sink": 1,
+  "seed": 42,
+  "contraste_mediana": 0.2273,
+  "blocos": [
+    {
+      "bloco": 0,
+      "entropia_norm": 0.7134,
+      "peso_max": 0.09863,
+      "massa_ancora": 0.37581,
+      "Lk": 4680,
+      "contraste": 0.2604,
+      "contraste_min": 0.2571,
+      "cinza": false
+    },
+    {
+      "bloco": 1,
+      "entropia_norm": 0.6878,
+      "peso_max": 0.09731,
+      "massa_ancora": 0.12644,
+      "Lk": 9360,
+      "contraste": 0.2532,
+      "contraste_min": 0.2463,
+      "cinza": false
+    },
+    {
+      "bloco": 2,
+      "entropia_norm": 0.6843,
+      "peso_max": 0.09211,
+      "massa_ancora": 0.08192,
+      "Lk": 14040,
+      "contraste": 0.2536,
+      "contraste_min": 0.2448,
+      "cinza": false
+    },
+    {
+      "bloco": 3,
+      "entropia_norm": 0.6814,
+      "peso_max": 0.09236,
+      "massa_ancora": 0.0849,
+      "Lk": 14040,
+      "contraste": 0.2414,
+      "contraste_min": 0.2319,
+      "cinza": false
+    },
+    {
+      "bloco": 4,
+      "entropia_norm": 0.6813,
+      "peso_max": 0.09183,
+      "massa_ancora": 0.08554,
+      "Lk": 14040,
+      "contraste": 0.2385,
+      "contraste_min": 0.2315,
+      "cinza": false
+    },
+    {
+      "bloco": 5,
+      "entropia_norm": 0.6799,
+      "peso_max": 0.09282,
+      "massa_ancora": 0.08712,
+      "Lk": 14040,
+      "contraste": 0.234,
+      "contraste_min": 0.2277,
+      "cinza": false
+    },
+    {
+      "bloco": 6,
+      "entropia_norm": 0.6795,
+      "peso_max": 0.09373,
+      "massa_ancora": 0.08662,
+      "Lk": 14040,
+      "contraste": 0.2312,
+      "contraste_min": 0.2266,
+      "cinza": false
+    },
+    {
+      "bloco": 7,
+      "entropia_norm": 0.6792,
+      "peso_max": 0.09238,
+      "massa_ancora": 0.08806,
+      "Lk": 14040,
+      "contraste": 0.2318,
+      "contraste_min": 0.2245,
+      "cinza": false
+    },
+    {
+      "bloco": 8,
+      "entropia_norm": 0.6814,
+      "peso_max": 0.09099,
+      "massa_ancora": 0.09108,
+      "Lk": 14040,
+      "contraste": 0.2301,
+      "contraste_min": 0.2231,
+      "cinza": false
+    },
+    {
+      "bloco": 9,
+      "entropia_norm": 0.6795,
+      "peso_max": 0.09218,
+      "massa_ancora": 0.08929,
+      "Lk": 14040,
+      "contraste": 0.2272,
+      "contraste_min": 0.2208,
+      "cinza": false
+    },
+    {
+      "bloco": 10,
+      "entropia_norm": 0.6796,
+      "peso_max": 0.09308,
+      "massa_ancora": 0.08887,
+      "Lk": 14040,
+      "contraste": 0.2238,
+      "contraste_min": 0.2188,
+      "cinza": false
+    },
+    {
+      "bloco": 11,
+      "entropia_norm": 0.6786,
+      "peso_max": 0.09207,
+      "massa_ancora": 0.08805,
+      "Lk": 14040,
+      "contraste": 0.2209,
+      "contraste_min": 0.2154,
+      "cinza": false
+    },
+    {
+      "bloco": 12,
+      "entropia_norm": 0.6793,
+      "peso_max": 0.09174,
+      "massa_ancora": 0.08993,
+      "Lk": 14040,
+      "contraste": 0.2163,
+      "contraste_min": 0.2113,
+      "cinza": false
+    },
+    {
+      "bloco": 13,
+      "entropia_norm": 0.679,
+      "peso_max": 0.09161,
+      "massa_ancora": 0.0915,
+      "Lk": 14040,
+      "contraste": 0.2162,
+      "contraste_min": 0.2086,
+      "cinza": false
+    },
+    {
+      "bloco": 14,
+      "entropia_norm": 0.6788,
+      "peso_max": 0.09163,
+      "massa_ancora": 0.08851,
+      "Lk": 14040,
+      "contraste": 0.2168,
+      "contraste_min": 0.2074,
+      "cinza": false
+    },
+    {
+      "bloco": 15,
+      "entropia_norm": 0.6778,
+      "peso_max": 0.09213,
+      "massa_ancora": 0.08657,
+      "Lk": 14040,
+      "contraste": 0.2181,
+      "contraste_min": 0.211,
+      "cinza": false
+    },
+    {
+      "bloco": 16,
+      "entropia_norm": 0.6799,
+      "peso_max": 0.09048,
+      "massa_ancora": 0.08982,
+      "Lk": 14040,
+      "contraste": 0.2166,
+      "contraste_min": 0.2082,
+      "cinza": false
+    },
+    {
+      "bloco": 17,
+      "entropia_norm": 0.6794,
+      "peso_max": 0.09172,
+      "massa_ancora": 0.08904,
+      "Lk": 14040,
+      "contraste": 0.2152,
+      "contraste_min": 0.2112,
+      "cinza": false
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+[
+ {
+  "tag": "kv6_sink0_nounlock",
+  "kv": 6,
+  "sink": 0,
+  "unlock": false,
+  "ok": true,
+  "las": -1,
+  "maxattn": 32760,
+  "fps_e2e": 1.73,
+  "fps_steady": 1.74,
+  "block_sec_primeiro": 3.682,
+  "block_sec_mediana": 7.082,
+  "peak_alloc_gb": 18.312
+ },
+ {
+  "tag": "kv6_sink0_unlock",
+  "kv": 6,
+  "sink": 0,
+  "unlock": true,
+  "ok": true,
+  "las": 9,
+  "maxattn": 14040,
+  "fps_e2e": 1.75,
+  "fps_steady": 1.75,
+  "block_sec_primeiro": 3.446,
+  "block_sec_mediana": 7.086,
+  "peak_alloc_gb": 18.312
+ },
+ {
+  "tag": "kv6_sink1_unlock",
+  "kv": 6,
+  "sink": 1,
+  "unlock": true,
+  "ok": true,
+  "las": 9,
+  "maxattn": 14040,
+  "fps_e2e": 1.75,
+  "fps_steady": 1.75,
+  "block_sec_primeiro": 3.47,
+  "block_sec_mediana": 7.104,
+  "peak_alloc_gb": 19.589
+ },
+ {
+  "tag": "kv3_sink0_nounlock",
+  "kv": 3,
+  "sink": 0,
+  "unlock": false,
+  "ok": true,
+  "las": -1,
+  "maxattn": 14040,
+  "fps_e2e": 2.25,
+  "fps_steady": 2.3,
+  "block_sec_primeiro": 3.447,
+  "block_sec_mediana": 5.232,
+  "peak_alloc_gb": 17.206
+ }
+]

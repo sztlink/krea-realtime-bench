@@ -141,7 +141,7 @@ def patched_recompute(self, models):
 GenerationSession.recompute_kv_cache = patched_recompute
 
 def unlock_resident_path(models, attn_size=6, sink_frames=1):
-    """Desfaz a mutação do init_models que torna a evicção com sink inalcançável."""
+    """Undoes the init_models mutation that makes sink eviction unreachable."""
     for block in models.pipeline.generator.model.blocks:
         block.self_attn.local_attn_size = attn_size
         block.self_attn.sink_size = sink_frames
