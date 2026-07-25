@@ -49,9 +49,9 @@ SEEDS = [int(x) for x in os.environ.get("AD_SEEDS", "42,43,44").split(",")]
 SENSOR_LAYER = 27
 NQ = 8
 RATIO = float(os.environ.get("AD_RATIO", "0.92"))
-# A linha de base tem que ser aprendida com a janela JA CHEIA. Nos primeiros blocos
-# ela ainda enche (4680, 9360, 14040 tokens) e o peso maximo vive em outro regime, o que
-# levanta a base e faz o gatilho quase nunca disparar.
+# The baseline has to be learned with the window ALREADY FULL. In the first blocks it is
+# still filling (4680, 9360, 14040 tokens) and the maximum weight lives in another regime,
+# which raises the baseline and makes the gate almost never fire.
 BASELINE_FROM = int(os.environ.get("AD_BASE_FROM", "4"))
 BASELINE_TO = int(os.environ.get("AD_BASE_TO", "8"))
 RES = {"runs": []}
@@ -113,10 +113,9 @@ def sensing_attention(q, k, v, *a, **kw):
         with torch.no_grad():
             Lq, D = q.shape[1], q.shape[-1]
             step = max(1, Lq // NQ)
-            # NAO castar ks para fp32: k[0].float() materializa a janela inteira
-            # (288 MB em kv6) a cada chamada, e foi isso que fez o sensor custar 24%.
-            # O einsum roda no dtype nativo e so o resultado, que e pequeno
-            # ([H, nq, Lk] = 4.5M), vira fp32 para o softmax.
+            # Do NOT cast ks to fp32. k[0].float() materialises the whole window (288 MB
+            # at kv6) on every call. The einsum runs in the native dtype and only the
+            # result, which is small ([H, nq, Lk] = 4.5M), becomes fp32 for the softmax.
             qs = q[0, ::step][:NQ]
             ks = k[0]
             logits = torch.einsum("qhd,khd->hqk", qs, ks).float() / math.sqrt(D)
@@ -182,7 +181,7 @@ def run(mode, seed):
             if S["n"]:
                 pm = S["acc"] / S["n"]
                 G["hist"].append(round(pm, 5)); G["last"] = pm
-                # linha de base: media dos primeiros blocos ja em regime cheio
+                # baseline: mean of the first blocks already in the full regime
                 if len(G["hist"]) == BASELINE_TO:
                     win = G["hist"][BASELINE_FROM:BASELINE_TO]
                     G["baseline"] = sum(win) / len(win)

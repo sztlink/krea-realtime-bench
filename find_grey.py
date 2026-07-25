@@ -34,15 +34,15 @@ def analyze(clip_dir):
 
 def dips(v, k=2.5):
     """indices onde v cai k desvios abaixo da mediana. Criterio RELATIVO ao proprio
-    clipe, entao serve para localizar o evento e NAO para comparar clipes entre si."""
+    clip, so it locates the event and does NOT compare clips against each other."""
     med, sd = np.median(v), v.std()
     return [i for i, x in enumerate(v) if x < med - k * sd]
 
 def depth(v, frac=0.85):
     """Medida ABSOLUTA, comparavel entre clipes: quanto o pior frame cai em relacao a
-    mediana, e que fracao do clipe fica abaixo de `frac` da mediana. Contar eventos com
-    limiar relativo engana, porque um clipe estavel marca queda rasa e um instavel
-    esconde queda funda."""
+    median, and what fraction of the clip sits below `frac` of it. Counting events with a
+    relative threshold misleads, because a stable clip flags a shallow dip and an unstable
+    one hides a deep one."""
     med = float(np.median(v))
     return {"queda_max_pct": round(100 * (med - float(v.min())) / med, 1),
             "frames_abaixo_de_85pct": int((v < frac * med).sum()),

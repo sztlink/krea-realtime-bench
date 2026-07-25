@@ -287,6 +287,73 @@ The last comparison inverted the expectation. Under a finite rebuild period the 
 
 Before the contrast measurement, the plan was to settle the reset question with a CLIP retention curve, frame t against frame 0, and it does not measure what it looks like it measures. On the moving camera prompt retention rose monotonically as rebuilds got rarer, which would rank the released behaviour last, and the reason is that a whole frame embedding tracks how much the camera moved. On the static camera prompt it registered drift correctly, 20 to 23 percent loss by the last third, but the spread between seeds exceeded the spread between regimes so it separates nothing at three seeds. Crop the subject instead (`ruler_identity.py`, `ruler-dance.json`, `ruler-skate.json`).
 
+## Chasing frames per second, and the ceiling an eye put on it
+
+Four levers were left after the cache work. Three of them are measured here, one was closed.
+
+The attention kernel first. The wheel the release ships (`libs/sageattention-2.2.1-...whl`) **carries no sm89 kernels**, so on a 4090 the call dies on an assert and every number in this repo before this section was measured with `DISABLE_SAGEATTENTION=1`. Building SageAttention from source with `TORCH_CUDA_ARCH_LIST=8.9` fixes it. The toolkit has to match torch rather than the driver, which means CUDA 12.8 for a cu128 build even though the driver accepts 13.2, and the package has to be `cuda-toolkit-12-8` so no driver is touched. Measured over 30 blocks, the denoise forward goes from 0.798 to 0.716 seconds, which is 1.11x on that stage and 6.0 percent on the frame.
+
+Compiling the VAE decoder is not worth it. In the loop it gives 1.12x on the decode and 4.5 percent end to end, for 4.4 GB of extra peak. That memory is worth more as context than as speed.
+
+The decoder itself is the interesting one. `load_vae()` hardcodes the heavy decoder and **never reads the `use_taehv` flag** that sits in both server configs, which makes it the fourth dead flag found in this codebase, after the doubled `local_attn_size = -1`, the zero `sink_size` and the unread `do_kv_recomp`. The tiny distilled decoder that ships in `demo_utils/taehv.py` decodes the same three latent frames **25.6 times faster**, 0.0256 seconds against 0.6554, for 11.3 million parameters against the full VAE.
+
+It cannot be dropped in as shipped. `apply_model_with_memblocks` allocates its temporal memory fresh on every call, and a server that decodes one block at a time would start each block with empty memory. Measured against the heavy decoder as a control, that leaves a seam. Frame to frame difference at block boundaries divided by the same difference inside blocks reads 1.023 for the heavy decoder, 3.008 for the tiny one called per block, and **1.208 once the memory is hoisted out of the traversal and carried across calls** (`taehv_stream.py`). Round trip error against the heavy decoder is 0.064 mean absolute in a zero to one range.
+
+## The frame is an equation, and steps are the big term
+
+Sweeping denoise steps at a fixed window gives a clean linear fit.
+
+| steps | fps | block | gain |
+|---|---|---|---|
+| 4 | 2.88 | 4.05 s | 1.00x |
+| 3 | 3.61 | 3.23 s | 1.25x |
+| 2 | 4.79 | 2.44 s | 1.66x |
+| 1 | 7.12 | 1.64 s | 2.47x |
+
+That is **block = steps x 0.717 s + fixed**, with the fixed part at 0.841 s using the heavy decoder and 0.203 s using the tiny one. The fit predicted 0.920 s for a one-step run and the measurement came back 0.929 s. At one step the fixed part is half the block, so the decoder stops being a detail and becomes the second biggest term.
+
+Stacking one step, SageAttention and the tiny decoder gives **12.73 fps at 832x480 with a peak of 14.06 GB and 0.93 s of block latency**, on a card that cannot load the bf16 model at all.
+
+## And then the gate that matters said no
+
+That 12.73 fps configuration was rejected on sight. Not marginal, not arguable. The subject fell apart.
+
+Isolating the cause took one existing grid that had been sitting unjudged. Across four step counts with the heavy decoder, the verdict was **four steps good, three steps acceptable, below that unusable**. So the step count is the cause and the decoder is exonerated. Which reprices the whole table.
+
+| steps | verdict | block | fps |
+|---|---|---|---|
+| 4 | good | 3.07 s | 3.8 |
+| 3 | acceptable | 2.35 s | **5.0** |
+| 2 | unusable | 1.64 s | 7.2 |
+| 1 | unusable | 0.92 s | 12.7 |
+
+**The real ceiling of this model on this card, at quality a person will accept, is 5.0 fps.** The 12.73 existed and was fps of unusable video. Every optimisation above is still real, and none of it moves that line, because the line is set by how many denoising steps the content needs rather than by how fast a step runs.
+
+The methodological failure is worth stating plainly. Three things were optimised in sequence with fps measured at every step and quality measured at none. When the eye finally entered, it invalidated the result, and the answer to which piece to revert came from a comparison that had been ready for hours and had never been put in front of anyone.
+
+## What the model does with a prompt it can read
+
+Two findings sit at the boundary between engineering and use, and both cost a full afternoon.
+
+The first is a bug worth publishing because anyone writing their own text encoder path will hit it. The tokenizer pads to 512 positions and the encoder produces values at the padded ones. `make_embedding.py` zeroes everything past the real tokens before saving. A rewritten faster encoder that skips that step produces embeddings where all 512 positions carry signal, the padding dominates conditioning, and **the model outputs flat brown mush with a lattice artifact**. Latents stay finite, no error is raised, throughput is normal. Every instrument reads healthy.
+
+The second is that the model ships its own prompt specification and it is easy to miss. `wan/utils/prompt_extend.py` contains the system prompt Wan uses to rewrite short inputs, and it is the documented format: declare a style first, describe the subject with attributes, describe the background separately, emphasise motion and camera movement with direct verbs, and end with shot scale. The four worked examples run 400 to 600 characters.
+
+Terse keyword prompts of around 120 characters, with no style declaration and no shot scale, produce moving texture rather than composed image. The same model, same seed, same quantised stack, given the documented format, produces a solar sphere with a limb against starfield, or a vertical column of light with rings and lateral sparks. Nothing changed except how the prompt was written.
+
+## Video to video, first measurements
+
+The regime the interactive case actually needs is not text to video. The schedule is `linspace(strength * 1000, 0, steps)`, so at strength 0.7 the first timestep is 700 rather than 1000 and the model starts from a partially noised input frame instead of from nothing. Each step covers less of the noise range.
+
+| strength | steps | fps | block |
+|---|---|---|---|
+| 0.7 | 4 | 3.25 | 3.54 s |
+| 0.7 | 2 | 5.36 | 2.15 s |
+
+Encoding the source costs about 7 seconds once per session in `input_video` mode. In webcam mode that cost becomes continuous and per block, so the latency figure for a live installation is not this one.
+
+One structural note before anyone reads too much into the speed. Krea Realtime is a text to video causal model **with** a video to video path, rather than a model designed for video to video. The difference shows up in output rather than in throughput.
+
 ## Limitations, stated before you find them
 
 - One prompt (a dancer in a warehouse), one resolution (832x480, the causal path hardcodes its RoPE for it), one GPU class, one day. The prompt is now a flag (`--prompt` or `BENCH_PROMPT`), so widen it.
@@ -298,6 +365,9 @@ Before the contrast measurement, the plan was to settle the reset question with 
 - The grey collapse is measured by frame contrast, which is a proxy. It was found by eye first, and the ruler was built afterward to match what the eye had already located. It does not detect identity drift, which an eye catches and which no metric here catches yet.
 - The reset period curve is four seeds on one prompt at one window. "Any finite period beats none" is solid across every seed. "Every fourth block is the best finite period" is not, the finite periods sit inside each other's spread.
 - W4A4 attention is nondeterministic across runs, so the same seed and the same configuration do not reproduce. Single runs are anecdotes here, which is why everything above is reported per seed.
+- The step-count verdict (four good, three acceptable, below unusable) is one person's eye on one prompt family at 832x480. It is the gate this work answers to, and it is not a measurement anyone else can reproduce without their own eye.
+- The V2V numbers use a generated clip as input, not camera footage. Camera grain, room lighting and real motion are a different problem, and webcam mode was not measured at all.
+- TAEHV weights came from a third party mirror, since the original repository is gone. They are verified by output rather than by provenance.
 
 ## Send back a receipt
 

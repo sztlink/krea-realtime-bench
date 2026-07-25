@@ -20,7 +20,7 @@ import torch
 import quant_kv
 from quant_kv import QuantKVTensor, _band_edges
 
-assert quant_kv.HAVE_KERNELS, "triton nao disponivel"
+assert quant_kv.HAVE_KERNELS, "triton not available"
 OUT = Path("results_qkv"); OUT.mkdir(exist_ok=True)
 RES = {"correcao": {}, "tempo": {}}
 dev = "cuda"
@@ -45,7 +45,7 @@ for mode in ("bands", "bands2", "bands4"):
     p_ref, s_ref = ref._quantize(x)
     p_ker, s_ker = ker._quantize(x)
 
-    # 1. desquantizacao do MESMO conteudo tem que bater exatamente
+    # 1. dequantising the SAME content must match exactly
     d_ref = ref._dequantize(p_ref, s_ref)
     d_ker = ker._dequantize(p_ref, s_ref)
     same = torch.equal(d_ref, d_ker)
@@ -67,9 +67,9 @@ for mode in ("bands", "bands2", "bands4"):
         "delta_erro": round(abs(err_ref - err_ker), 6),
     }
     print(mode, json.dumps(RES["correcao"][mode]), flush=True)
-    assert same, f"{mode}: dequant divergiu"
-    assert dq_max <= 1, f"{mode}: quant divergiu mais que empate ({dq_max})"
-    assert abs(err_ref - err_ker) < 1e-3, f"{mode}: erro de ida e volta divergiu"
+    assert same, f"{mode}: dequantisation diverged"
+    assert dq_max <= 1, f"{mode}: quantisation diverged beyond a rounding tie ({dq_max})"
+    assert abs(err_ref - err_ker) < 1e-3, f"{mode}: round trip error diverged"
 
 def bench(fn, reps=20):
     for _ in range(3): fn()

@@ -163,7 +163,7 @@ run("bf16_kv3",  3, None,   save_clip=True)     # controle: 2.81 fps, 22.77 GB
 run("q44_kv3",   3, BANDS4, save_clip=True)
 run("q84_kv3",   3, K8V4,   save_clip=True)
 run("bf16_kv6",  6, None)                        # esperado: OOM no init
-run("q44_kv6",   6, BANDS4, save_clip=True)      # a janela que passa a caber
+run("q44_kv6",   6, BANDS4, save_clip=True)      # the window that starts fitting
 run("q84_kv6",   6, K8V4)
 run("q44_kv12", 12, BANDS4, save_clip=True)      # o premio grande
 

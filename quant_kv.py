@@ -55,7 +55,7 @@ except Exception:
 USE_KERNELS = HAVE_KERNELS and os.environ.get("QKV_KERNELS", "1") != "0"
 
 FRAME_SEQ_LEN = 1560
-# bordas reais das bandas do RoPE para head_dim 128 (ver docstring)
+# real rotary band edges for head_dim 128 (see docstring)
 ROPE_BANDS = ((0, 44), (44, 86), (86, 128))
 
 
@@ -63,7 +63,7 @@ def _band_edges(head_dim, mode):
     """bands = the three rotary bands. bandsN = each band subdivided into N groups without
     ever crossing a boundary. blindN = blind groups of N channels, which do cross."""
     if mode.startswith("bands"):
-        assert head_dim == 128, f"bandas do RoPE mapeadas para head_dim 128, veio {head_dim}"
+        assert head_dim == 128, f"rotary bands are mapped for head_dim 128, got {head_dim}"
         n = int(mode[5:]) if len(mode) > 5 else 1
         if n == 1:
             return ROPE_BANDS
@@ -85,7 +85,7 @@ def _band_edges(head_dim, mode):
 class QuantKVTensor:
     """Behaves like a [1, S, H, D] bf16 tensor across the operations the runtime uses.
 
-    Armazena int4 empacotado (dois valores por byte) mais uma escala bf16 por
+    Stores packed int4 (two values per byte) plus one bf16 scale per
     per (token, head, band). The first `sink_tokens` stay in bf16 when asked for.
     """
 
@@ -101,7 +101,7 @@ class QuantKVTensor:
         self.n_tokens, self.n_heads, self.head_dim = s, h, d
         self.bands = _band_edges(d, group_mode)
         self.group_mode = group_mode
-        self.qmax = (1 << (bits - 1)) - 1          # 7 para int4, 127 para int8
+        self.qmax = (1 << (bits - 1)) - 1          # 7 for int4, 127 for int8
         self.sink_tokens = min(sink_tokens, s)
 
         packed_d = d // 2 if bits == 4 else d
@@ -217,7 +217,7 @@ class QuantKVTensor:
     # the eviction calls kv_cache["k"][:, c:d].clone(), and __getitem__ already returns
     # a real tensor, so provenance is detected in __setitem__ instead
     def clone(self):
-        raise RuntimeError("clone() no cache inteiro nao e usado pelo runtime")
+        raise RuntimeError("clone() on the whole cache is never called by the runtime")
 
     def __repr__(self):
         gb = self.storage_bytes() / 1e9

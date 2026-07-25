@@ -1,0 +1,19 @@
+{
+ "runs": [
+  {
+   "tag": "plasma_s0.85_st1",
+   "strength": 0.85,
+   "steps": 1,
+   "entrada": "results_n/C-s42.mp4",
+   "ok": true,
+   "encode_sec": 7.07,
+   "wall_sec": 11.97,
+   "frames": 90,
+   "fps": 7.52,
+   "bloco_s": 1.496,
+   "peak_gb": 20.16,
+   "latents_finite": true,
+   "mp4": "plasma_s0.85_st1.mp4"
+  }
+ ]
+}

@@ -114,7 +114,7 @@ def probed_attention(q, k, v, *a, **kw):
             PROBE.append({
                 "block": STATE["block"], "layer": layer, "Lk": int(Lk),
                 "entropia": round(float(ent.mean()), 4),
-                # normalizada pelo maximo possivel, para comparar janelas de tamanhos diferentes
+                # normalised by the maximum, so windows of different sizes compare
                 "entropia_norm": round(float(ent.mean() / math.log(Lk)), 4),
                 "peso_max": round(float(p.max(-1).values.mean()), 5),
                 "massa_ancora": round(float(p[..., :SINK_TOKENS].sum(-1).mean()), 5),
@@ -154,7 +154,7 @@ for i in range(BLOCKS):
     except asyncio.CancelledError: break
 torch.cuda.synchronize()
 
-# contraste por frame, para correlacionar
+# per frame contrast, to correlate against
 import numpy as np
 con = []
 for blk in frames:

@@ -1,0 +1,26 @@
+{
+ "pesado_controle": {
+  "frames": 105,
+  "frames_por_bloco": 11,
+  "diff_media_geral": 0.04197,
+  "diff_media_nas_emendas": 0.04286,
+  "diff_media_fora": 0.04189,
+  "razao_emenda": 1.023
+ },
+ "sem_estado": {
+  "frames": 108,
+  "frames_por_bloco": 12,
+  "diff_media_geral": 0.04569,
+  "diff_media_nas_emendas": 0.11949,
+  "diff_media_fora": 0.03973,
+  "razao_emenda": 3.008
+ },
+ "com_estado": {
+  "frames": 108,
+  "frames_por_bloco": 12,
+  "diff_media_geral": 0.04055,
+  "diff_media_nas_emendas": 0.04825,
+  "diff_media_fora": 0.03993,
+  "razao_emenda": 1.208
+ }
+}
