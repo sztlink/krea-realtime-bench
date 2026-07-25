@@ -1,0 +1,72 @@
+{
+ "meta": {
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "blocks": 36,
+  "seeds": [
+   42
+  ],
+  "prompt": "Camera tracking alongside a woman in a bikini rollerskating down a Miami boardwalk at golden hour, palm trees and neon signs streaking past, lens flare, smooth steadicam motion, saturated colors, cinematic, 35mm"
+ },
+ "runs": [
+  {
+   "tag": "C-s42",
+   "N": 1,
+   "seed": 42,
+   "blocks": 36,
+   "ok": true,
+   "wall_sec": 184.21,
+   "frames": 426,
+   "fps": 2.31,
+   "recompute_calls": 36,
+   "peak_alloc_gb": 22.809,
+   "latents_finite": true,
+   "latent_absmax": 4.188,
+   "mp4": "C-s42.mp4"
+  },
+  {
+   "tag": "A-s42",
+   "N": 2,
+   "seed": 42,
+   "blocks": 36,
+   "ok": true,
+   "wall_sec": 175.42,
+   "frames": 426,
+   "fps": 2.43,
+   "recompute_calls": 18,
+   "peak_alloc_gb": 22.809,
+   "latents_finite": true,
+   "latent_absmax": 4.062,
+   "mp4": "A-s42.mp4"
+  },
+  {
+   "tag": "D-s42",
+   "N": 4,
+   "seed": 42,
+   "blocks": 36,
+   "ok": true,
+   "wall_sec": 169.35,
+   "frames": 426,
+   "fps": 2.52,
+   "recompute_calls": 9,
+   "peak_alloc_gb": 22.809,
+   "latents_finite": true,
+   "latent_absmax": 4.375,
+   "mp4": "D-s42.mp4"
+  },
+  {
+   "tag": "B-s42",
+   "N": "inf",
+   "seed": 42,
+   "blocks": 36,
+   "ok": true,
+   "wall_sec": 163.0,
+   "frames": 426,
+   "fps": 2.61,
+   "recompute_calls": 1,
+   "peak_alloc_gb": 22.809,
+   "latents_finite": true,
+   "latent_absmax": 4.0,
+   "mp4": "B-s42.mp4"
+  }
+ ]
+}

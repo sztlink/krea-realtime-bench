@@ -1,0 +1,82 @@
+{
+ "meta": {
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "torch": "2.8.0+cu128",
+  "latents_shape": [
+   1,
+   27,
+   16,
+   60,
+   104
+  ],
+  "latents_dtype": "torch.bfloat16",
+  "compile_call_sec": 0.16,
+  "first_pass_wall_sec": 27.1,
+  "speedup_per_block": 1.312,
+  "extra_peak_gb": 6.324,
+  "fidelity_vs_eager": {
+   "max_abs_diff": 0.0379638671875,
+   "mean_abs_diff": 0.00023847559350542724,
+   "finite": true
+  }
+ },
+ "phases": [
+  {
+   "tag": "eager",
+   "note": "control",
+   "ok": true,
+   "wall_sec": 11.8,
+   "blocks_timed": 18,
+   "sec_per_block_mean": 0.6555,
+   "sec_per_block_min": 0.5043,
+   "first_block_sec": 0.6576,
+   "peak_alloc_gb": 6.431,
+   "pixels_shape": [
+    1,
+    12,
+    3,
+    480,
+    832
+   ],
+   "pixels_finite": true
+  },
+  {
+   "tag": "compiled_warmup",
+   "note": "compilation happens here",
+   "ok": true,
+   "wall_sec": 27.01,
+   "blocks_timed": 9,
+   "sec_per_block_mean": 1.9868,
+   "sec_per_block_min": 0.5059,
+   "first_block_sec": 11.1142,
+   "peak_alloc_gb": 12.755,
+   "pixels_shape": [
+    1,
+    12,
+    3,
+    480,
+    832
+   ],
+   "pixels_finite": true
+  },
+  {
+   "tag": "compiled",
+   "note": "steady",
+   "ok": true,
+   "wall_sec": 8.88,
+   "blocks_timed": 18,
+   "sec_per_block_mean": 0.4995,
+   "sec_per_block_min": 0.3923,
+   "first_block_sec": 0.3922,
+   "peak_alloc_gb": 12.755,
+   "pixels_shape": [
+    1,
+    12,
+    3,
+    480,
+    832
+   ],
+   "pixels_finite": true
+  }
+ ]
+}

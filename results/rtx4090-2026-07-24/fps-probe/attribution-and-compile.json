@@ -1,0 +1,194 @@
+{
+ "meta": {
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "torch": "2.8.0+cu128",
+  "triton": "3.4.0",
+  "blocks": 9,
+  "load": {
+   "sec": 1.1,
+   "torch_alloc_gb": 8.228,
+   "device_used_gb": 8.679
+  },
+  "vae_compile_call_sec": 0.0,
+  "dynamo_after_C": {
+   "graph_break_kinds": 0,
+   "graph_breaks_total": 0,
+   "top": []
+  },
+  "tf_compile_call_sec": 0.0,
+  "dynamo_after_D": {
+   "graph_break_kinds": 6,
+   "graph_breaks_total": 64,
+   "top": [
+    [
+     "Attempted to call function marked as skipped\n  Explanation: Dynamo does not know how to trace the builtin `nunchaku._C.ops.PyCapsule.quantize_w4a4_act_fuse_lora.` This function is either a Python builtin (e.g. _warnings.warn) or a third-party C/C++ Python extension (perhaps created with pybind).\n  Hint: If it is a Python builtin, please file an issue on GitHub so the PyTorch team can add support for it and see the next case for a workaround.\n  Hint: If it is a third-party C/C++ Python extension, please either wrap it into a PyTorch-understood custom operator (see https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html for more details) or, if it is traceable, use `torch.compiler.allow_in_graph`.\n\n  Developer debug context: module: nunchaku._C.ops, qualname: PyCapsule.quantize_w4a4_act_fuse_lora, skip reason: <missing reason>\n",
+     44
+    ],
+    [
+     "Attempted to call function marked as skipped\n  Explanation: Dynamo does not know how to trace the builtin `nunchaku._C.ops.PyCapsule.gemm_w4a4.` This function is either a Python builtin (e.g. _warnings.warn) or a third-party C/C++ Python extension (perhaps created with pybind).\n  Hint: If it is a Python builtin, please file an issue on GitHub so the PyTorch team can add support for it and see the next case for a workaround.\n  Hint: If it is a third-party C/C++ Python extension, please either wrap it into a PyTorch-understood custom operator (see https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html for more details) or, if it is traceable, use `torch.compiler.allow_in_graph`.\n\n  Developer debug context: module: nunchaku._C.ops, qualname: PyCapsule.gemm_w4a4, skip reason: <missing reason>\n",
+     14
+    ],
+    [
+     "Could not guard on data-dependent expression u0*u1*u2 < 0 (unhinted: u0*u1*u2 < 0).  (Size-like symbols: none)\n\nCaused by: x_i = torch.view_as_complex(x[i, :seq_len].to(torch.float64).reshape(  # wan/modules/causal_model.py:156 in causal_rope_apply (_decomp/decompositions.py:745 in slice_forward)\nFor more information, run with TORCH_LOGS=\"dynamic\"\nFor extended logs when we create symbols, also add TORCHDYNAMO_EXTENDED_DEBUG_CREATE_SYMBOL=\"u0,u2,u1\"\nIf you suspect the guard was triggered from C++, add TORCHDYNAMO_EXTENDED_DEBUG_CPP=1\nFor more debugging help, see https://docs.google.com/document/d/1HSuTTVvYH1pTew89Rtpeu84Ht3nQEFTYhAX3Ypa_xJs/edit?usp=sharing\n\nUser Stack (most recent call last):\n  (snipped, see stack below for prefix)\n  File \"/home/aya/realtime-diffusion/realtime-video/wan/modules/causal_model.py\", line 370, in torch_dynamo_resume_in_forward_at_259\n    # Clone the source slice to avoid overlapping memory error\n  File \"/home/aya/realtime-diffusion/realtime-video/wan/modules/causal_model.py\", line 156, in causal_rope_apply\n    x_i = torch.view_as_complex(x[i, :seq_len].to(torch.float64).reshape(\n\nFor C++ stack trace, run with TORCHDYNAMO_EXTENDED_DEBUG_CPP=1\nFor more information about this error, see: https://pytorch.org/docs/main/generated/exportdb/index.html#constrain-as-size-example",
+     2
+    ],
+    [
+     "Could not guard on data-dependent expression u0*u1*u2 < 0 (unhinted: u0*u1*u2 < 0).  (Size-like symbols: none)\n\nCaused by: x_i = torch.view_as_complex(x[i, :seq_len].to(torch.float64).reshape(  # wan/modules/causal_model.py:156 in causal_rope_apply (_decomp/decompositions.py:745 in slice_forward)\nFor more information, run with TORCH_LOGS=\"dynamic\"\nFor extended logs when we create symbols, also add TORCHDYNAMO_EXTENDED_DEBUG_CREATE_SYMBOL=\"u0,u2,u1\"\nIf you suspect the guard was triggered from C++, add TORCHDYNAMO_EXTENDED_DEBUG_CPP=1\nFor more debugging help, see https://docs.google.com/document/d/1HSuTTVvYH1pTew89Rtpeu84Ht3nQEFTYhAX3Ypa_xJs/edit?usp=sharing\n\nUser Stack (most recent call last):\n  (snipped, see stack below for prefix)\n  File \"/home/aya/realtime-diffusion/realtime-video/wan/modules/causal_model.py\", line 345, in torch_dynamo_resume_in_forward_at_370\n    value=padded_v.transpose(2, 1).contiguous(),\n  File \"/home/aya/realtime-diffusion/realtime-video/wan/modules/causal_model.py\", line 156, in causal_rope_apply\n    x_i = torch.view_as_complex(x[i, :seq_len].to(torch.float64).reshape(\n\nFor C++ stack trace, run with TORCHDYNAMO_EXTENDED_DEBUG_CPP=1\nFor more information about this error, see: https://pytorch.org/docs/main/generated/exportdb/index.html#constrain-as-size-example",
+     2
+    ]
+   ]
+  }
+ },
+ "runs": [
+  {
+   "tag": "A_eager_warmup",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "instrumented": false,
+   "note": "first block pays cache init",
+   "ok": true,
+   "wall_sec": 37.75,
+   "pixel_frames": 102,
+   "block_sec": [
+    3.218,
+    4.637,
+    4.269,
+    4.271,
+    4.269,
+    4.269,
+    4.271,
+    4.272,
+    4.272
+   ],
+   "fps_e2e": 2.7,
+   "fps_steady": 2.78,
+   "peak_alloc_gb": 22.777,
+   "latents_finite": true,
+   "torch_alloc_gb": 18.549,
+   "device_used_gb": 24.23
+  },
+  {
+   "tag": "A_eager",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "instrumented": false,
+   "note": "control fps, uninstrumented",
+   "ok": true,
+   "wall_sec": 37.12,
+   "pixel_frames": 102,
+   "block_sec": [
+    2.976,
+    4.233,
+    4.27,
+    4.272,
+    4.273,
+    4.273,
+    4.273,
+    4.275,
+    4.272
+   ],
+   "fps_e2e": 2.75,
+   "fps_steady": 2.81,
+   "peak_alloc_gb": 22.777,
+   "latents_finite": true,
+   "torch_alloc_gb": 18.549,
+   "device_used_gb": 24.146
+  },
+  {
+   "tag": "B_eager_attrib",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "instrumented": true,
+   "note": "syncs added; not an fps number",
+   "ok": true,
+   "wall_sec": 37.14,
+   "pixel_frames": 102,
+   "block_sec": [
+    2.982,
+    4.236,
+    4.275,
+    4.275,
+    4.276,
+    4.276,
+    4.276,
+    4.273,
+    4.275
+   ],
+   "fps_e2e": 2.75,
+   "fps_steady": 2.81,
+   "peak_alloc_gb": 22.777,
+   "latents_finite": true,
+   "torch_alloc_gb": 18.549,
+   "device_used_gb": 24.272,
+   "attribution_sec": {
+    "recompute": 5.509,
+    "denoise": 30.941,
+    "vae_decode": 5.841
+   },
+   "attribution_calls": {
+    "recompute": 9,
+    "denoise": 44,
+    "vae_decode": 9
+   },
+   "attribution_pct": {
+    "recompute": 14.8,
+    "denoise": 83.3,
+    "vae_decode": 15.7,
+    "unattributed": -13.9
+   }
+  },
+  {
+   "tag": "C_vae_compiled_warmup",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "instrumented": false,
+   "note": "compilation happens here",
+   "ok": false,
+   "error": "_code.py\", line 584, in __call__\n    return self.current_callable(inputs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/aya/realtime-diffusion/realtime-video/.venv/lib/python3.11/site-packages/torch/_inductor/utils.py\", line 2716, in run\n    out = model(new_inputs)\n          ^^^^^^^^^^^^^^^^^\n  File \"/tmp/torchinductor_aya/gv/cgvf5nvd2j2vnouy3lte3dlj5xghzqmzpxcsmdz422vwvrz7jv2e.py\", line 9634, in call\n    buf196 = empty_strided_cuda((1, 96, 4, 480, 832), (153354240, 1597440, 399360, 832, 1), torch.float32)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 586.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 249.75 MiB is free. Including non-PyTorch memory, this process has 23.27 GiB memory in use. Of the allocated memory 22.47 GiB is allocated by PyTorch, and 314.88 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+  },
+  {
+   "tag": "C_vae_compiled",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "instrumented": false,
+   "note": "uninstrumented",
+   "ok": false,
+   "error": "_code.py\", line 584, in __call__\n    return self.current_callable(inputs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/aya/realtime-diffusion/realtime-video/.venv/lib/python3.11/site-packages/torch/_inductor/utils.py\", line 2716, in run\n    out = model(new_inputs)\n          ^^^^^^^^^^^^^^^^^\n  File \"/tmp/torchinductor_aya/gv/cgvf5nvd2j2vnouy3lte3dlj5xghzqmzpxcsmdz422vwvrz7jv2e.py\", line 9634, in call\n    buf196 = empty_strided_cuda((1, 96, 4, 480, 832), (153354240, 1597440, 399360, 832, 1), torch.float32)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 586.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 349.75 MiB is free. Including non-PyTorch memory, this process has 23.17 GiB memory in use. Of the allocated memory 22.47 GiB is allocated by PyTorch, and 214.88 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+  },
+  {
+   "tag": "C_vae_compiled_attrib",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "instrumented": true,
+   "note": "where the time moved",
+   "ok": false,
+   "error": "    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntorch._dynamo.exc.Unsupported: Attempted to call function marked as skipped\n  Explanation: Dynamo does not know how to trace the builtin `time.perf_counter.` This function is either a Python builtin (e.g. _warnings.warn) or a third-party C/C++ Python extension (perhaps created with pybind).\n  Hint: If it is a Python builtin, please file an issue on GitHub so the PyTorch team can add support for it and see the next case for a workaround.\n  Hint: If it is a third-party C/C++ Python extension, please either wrap it into a PyTorch-understood custom operator (see https://pytorch.org/tutorials/advanced/custom_ops_landing_page.html for more details) or, if it is traceable, use `torch.compiler.allow_in_graph`.\n\n  Developer debug context: module: time, qualname: perf_counter, skip reason: <missing reason>\n\n\nfrom user code:\n   File \"/home/aya/realtime-diffusion/realtime-video/bench_fps.py\", line 128, in wrapper\n    torch.cuda.synchronize(); t = time.perf_counter()\n\nSet TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS=\"+dynamo\"\n\n"
+  },
+  {
+   "tag": "D_tf_compiled_warmup",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "instrumented": false,
+   "note": "compilation + graph breaks happen here",
+   "ok": false,
+   "error": "_code.py\", line 584, in __call__\n    return self.current_callable(inputs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/aya/realtime-diffusion/realtime-video/.venv/lib/python3.11/site-packages/torch/_inductor/utils.py\", line 2716, in run\n    out = model(new_inputs)\n          ^^^^^^^^^^^^^^^^^\n  File \"/tmp/torchinductor_aya/gv/cgvf5nvd2j2vnouy3lte3dlj5xghzqmzpxcsmdz422vwvrz7jv2e.py\", line 9634, in call\n    buf196 = empty_strided_cuda((1, 96, 4, 480, 832), (153354240, 1597440, 399360, 832, 1), torch.float32)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 586.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 231.75 MiB is free. Including non-PyTorch memory, this process has 23.28 GiB memory in use. Of the allocated memory 22.47 GiB is allocated by PyTorch, and 332.31 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+  },
+  {
+   "tag": "D_tf_compiled",
+   "kv": 3,
+   "steps": 4,
+   "seed": 42,
+   "instrumented": false,
+   "note": "uninstrumented",
+   "ok": false,
+   "error": "_code.py\", line 584, in __call__\n    return self.current_callable(inputs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/aya/realtime-diffusion/realtime-video/.venv/lib/python3.11/site-packages/torch/_inductor/utils.py\", line 2716, in run\n    out = model(new_inputs)\n          ^^^^^^^^^^^^^^^^^\n  File \"/tmp/torchinductor_aya/gv/cgvf5nvd2j2vnouy3lte3dlj5xghzqmzpxcsmdz422vwvrz7jv2e.py\", line 9634, in call\n    buf196 = empty_strided_cuda((1, 96, 4, 480, 832), (153354240, 1597440, 399360, 832, 1), torch.float32)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 586.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 291.75 MiB is free. Including non-PyTorch memory, this process has 23.22 GiB memory in use. Of the allocated memory 22.48 GiB is allocated by PyTorch, and 263.16 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+  }
+ ]
+}

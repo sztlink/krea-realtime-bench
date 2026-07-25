@@ -172,12 +172,49 @@ With the blocks at 7.76 GB the model generates.
 
 Half the fps of the bf16 model on an H100, from a card that cannot even initialize the bf16 model. Frames and raw numbers in `results/rtx4090-2026-07-24/w4a4-14b/`. The remaining distance to real time runs through kernel fusion, the 4-bit KV cache, and spending the four-bit budget where the model needs it, and every one of those steps now iterates on a consumer card at zero marginal cost.
 
+## Quantizing the weights did not remove the bottleneck, it moved it
+
+The obvious next lever looked like `torch.compile`, because it costs nothing and needs no CUDA toolkit. It is not the lever, and finding out took one bench. The frame splits into transformer 83 percent (denoise plus the KV cache recompute at 14.8 percent) and VAE decode 15.7 percent, measured with a sync around each piece against a control that reproduced the gate exactly at 2.81 fps and 22.777 GB (`bench_fps.py`, `results/rtx4090-2026-07-24/fps-probe/attribution-and-compile.json`). The 83 percent cannot be compiled at all, because the Nunchaku W4A4 linears enter through a pybind extension rather than the torch dispatcher, so dynamo graph-breaks at every one of the 400 quantized slots. And every compiled run died with a 586 MB out-of-memory, not from difficulty but from having nowhere to grow. Asked where memory is free, with only the decoder on the card replaying the real latents from the gate run, the compiled VAE gives 1.31x for 6.32 GB of extra peak (`bench_vae.py`, `vae-isolated.json`). On a 15.7 percent slice that is 3.7 percent end to end, for memory the card does not have.
+
+So we counted the bytes instead of projecting them (`bench_mem.py`, `memory-profile.json`).
+
+| on the card, kv window 3 | GB |
+|---|---|
+| W4A4 weights | 8.23 |
+| **KV cache**, `[1, 9360, 40, 128]` bf16, 40 layers, k and v | **7.67** |
+| cross-attention cache | 0.42 |
+| VAE, pipeline, activations, latents | about 6.45 |
+| **peak / free** | **22.77 / 0.92** |
+
+The model was quantized to four bits and the cache is now almost the size of the model. The window-6 and window-12 caches do not fail on architecture, they fail inside `_initialize_kv_cache` by 138 MB and 230 MB. What binds this card is the cache, and four-bit KV would free 5.63 GB, six times the headroom that exists.
+
+## The recompute is a rule, not a cost, so we made its period a control
+
+Krea holds long context stable by rebuilding the whole KV cache every block. It zeroes the cache, assembles a clean context of the anchor frame plus the most recent denoised latents, and refills with one forward at timestep zero. The cache therefore never holds keys and values derived from noisy intermediate states, which is why error cannot accumulate in it. That is a generative rule, closer to calling `background()` inside `draw()` than to an optimization, and replacing it with a resident cache is a change of medium presented as a change of cost. So before spending the four-bit budget to erase the rule, we made the period a parameter and swept it (`bench_n.py`).
+
+Three findings in the released code came out of building that sweep, and they are a gift back. `init_models` sets `block.self_attn.local_attn_size = -1` twice on the way in, while only the pipeline receives the real window, so the rolling eviction with attention sinks can never fire and `max_attention_size` stays at 32760. `sink_size` is 0 everywhere, so in a resident regime the eviction would discard the anchor frame. And `do_kv_recomp` sits in both server configs and in `test_request.py` while `release_server.py` never reads it. The resident path is written and unreachable.
+
+Four regimes, same memory, same seeds, 18 blocks, judged blind before the key was opened.
+
+| reset period | fps, dancer, 3 seeds | fps, skater, 3 seeds | recomputes |
+|---|---|---|---|
+| every block (upstream) | 2.23 | 2.27 | 18 |
+| every 2 blocks | 2.38 | 2.45 | 9 |
+| every 4 blocks | 2.45 | 2.52 | 5 |
+| never | 2.52 | 2.59 | 1 |
+
+Latents stayed finite in all twelve runs of both prompts, and the resident regime showed no numerical divergence at all. Its latent maxima came in lower than the upstream regime, not higher. On a doubled run of 36 blocks, about 26 seconds of video, the four regimes remain 13 percent apart in fps and the verdict by eye was that quality is very close in all of them and what changes is the path the animation takes. Raw numbers, the blind key and both prompts in `results/rtx4090-2026-07-24/reset-period/`.
+
+One negative result worth publishing. We tried to settle the ordering with a CLIP retention curve, frame t against frame 0, and it does not measure what it looks like it measures. On the moving-camera prompt retention rose monotonically as resets got rarer, which would rank upstream last, and the reason is that the metric was tracking how much the camera moved rather than how much identity drifted. On the static-camera prompt it registered the drift correctly, around 20 to 23 percent loss by the last third, but the spread between seeds was larger than the spread between regimes, so it separates nothing at n=3. A whole-frame embedding is the wrong probe here. The next ruler crops the subject (`ruler_identity.py`, `ruler-dance.json`, `ruler-skate.json`).
+
 ## Limitations, stated before you find them
 
 - One prompt (a dancer in a warehouse), one resolution (832x480, the causal path hardcodes its RoPE for it), one GPU class, one day. The prompt is now a flag (`--prompt` or `BENCH_PROMPT`), so widen it.
 - Eager only, no `DO_COMPILE`. The compiled number would be higher and less comparable across boxes. The memory numbers and the recompute curve do not depend on it.
 - fps here is end-to-end through VAE decode and frame callback, not transformer-only marketing fps.
 - n=1 on hardware. That is the whole point of the receipt format below.
+- The reset-period sweep is 3 seeds per regime on two prompts. "Quality is very close in all of them" is one pair of eyes on unlabeled clips, not a measured equivalence, and the ruler we tried could not separate the regimes at that sample size. Read it as no visible penalty found, not as no penalty.
+- `torch.compile` is reported as unusable on this build for a specific reason, opaque pybind kernels plus no memory headroom. Both conditions can change. A dispatcher-registered kernel or a smaller resident footprint would reopen it.
 
 ## Send back a receipt
 

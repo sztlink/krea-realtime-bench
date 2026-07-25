@@ -1,0 +1,67 @@
+{
+ "stages": {
+  "00_empty": {
+   "alloc_gb": 0.0,
+   "reserved_gb": 0.0,
+   "device_used_gb": 0.435,
+   "device_free_gb": 24.817
+  },
+  "10_weights_loaded": {
+   "alloc_gb": 8.228,
+   "reserved_gb": 8.244,
+   "device_used_gb": 8.679,
+   "device_free_gb": 16.574
+  },
+  "20_vae_and_pipeline": {
+   "alloc_gb": 8.486,
+   "reserved_gb": 8.789,
+   "device_used_gb": 9.289,
+   "device_free_gb": 15.963
+  }
+ },
+ "caches": {},
+ "windows": [
+  {
+   "kv_frames": 3,
+   "ok": true,
+   "session_init_delta_gb": 8.092,
+   "kv_cache_gb": 7.668,
+   "kv_per_key_gb": {
+    "k": 3.834,
+    "v": 3.834,
+    "global_end_index": 0.0,
+    "local_end_index": 0.0
+   },
+   "crossattn_cache_gb": 0.419,
+   "crossattn_per_key_gb": {
+    "k": 0.21,
+    "v": 0.21,
+    "is_init": 0.0
+   },
+   "kv_layers": 40,
+   "kv_k_shape": [
+    1,
+    9360,
+    40,
+    128
+   ],
+   "kv_k_dtype": "torch.bfloat16",
+   "peak_alloc_gb": 22.771,
+   "device_used_gb": 24.334,
+   "device_free_gb": 0.918,
+   "wall_sec": 16.32,
+   "kv_4bit_projected_gb": 2.037,
+   "kv_4bit_frees_gb": 5.631
+  },
+  {
+   "kv_frames": 6,
+   "ok": false,
+   "error": "ile \"/home/aya/realtime-diffusion/realtime-video/release_server.py\", line 549, in init_models\n    models.pipeline._initialize_kv_cache(batch_size=1, dtype=torch.bfloat16, device=gpu)\n  File \"/home/aya/realtime-diffusion/realtime-video/pipeline/causal_inference.py\", line 307, in _initialize_kv_cache\n    \"k\": torch.zeros(k_shape, dtype=dtype, device=device).contiguous(),\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 138.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 41.75 MiB is free. Including non-PyTorch memory, this process has 23.47 GiB memory in use. Of the allocated memory 22.95 GiB is allocated by PyTorch, and 40.59 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+  },
+  {
+   "kv_frames": 12,
+   "ok": false,
+   "error": "le \"/home/aya/realtime-diffusion/realtime-video/release_server.py\", line 549, in init_models\n    models.pipeline._initialize_kv_cache(batch_size=1, dtype=torch.bfloat16, device=gpu)\n  File \"/home/aya/realtime-diffusion/realtime-video/pipeline/causal_inference.py\", line 308, in _initialize_kv_cache\n    \"v\": torch.zeros(v_shape, dtype=dtype, device=device).contiguous(),\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntorch.OutOfMemoryError: CUDA out of memory. Tried to allocate 230.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 181.75 MiB is free. Including non-PyTorch memory, this process has 23.33 GiB memory in use. Of the allocated memory 22.81 GiB is allocated by PyTorch, and 37.70 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+  }
+ ]
+}
